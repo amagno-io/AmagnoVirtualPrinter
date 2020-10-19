@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{135C85EB-2116-4CC4-8CCB-B6804B9D6467}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VirtualPrinter.Agent.Core</RootNamespace>
+    <AssemblyName>VirtualPrinter.Agent.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Files\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Printing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enums\IntermediateFormat.cs" />
+    <Compile Include="Interfaces\IDirectoryHelper.cs" />
+    <Compile Include="Interfaces\IConfig.cs" />
+    <Compile Include="Interfaces\IExConfig.cs" />
+    <Compile Include="Interfaces\IJob.cs" />
+    <Compile Include="Interfaces\IJobFactory.cs" />
+    <Compile Include="Interfaces\IJobInfo.cs" />
+    <Compile Include="Interfaces\IJobProcessor.cs" />
+    <Compile Include="Interfaces\IJobRedirector.cs" />
+    <Compile Include="Interfaces\IJobService.cs" />
+    <Compile Include="Interfaces\IPostScriptConverter.cs" />
+    <Compile Include="Interfaces\IRegistryRepository.cs" />
+    <Compile Include="Interfaces\ISessionInfo.cs" />
+    <Compile Include="Interfaces\IShell.cs" />
+    <Compile Include="Interfaces\IUserConfig.cs" />
+    <Compile Include="Interfaces\IVirtualPrinter.cs" />
+    <Compile Include="Interfaces\IVirtualPrinterService.cs" />
+    <Compile Include="Interfaces\JobStatus.cs" />
+    <Compile Include="Model\JobInfo.cs" />
+    <Compile Include="Model\PostScriptConversionException.cs" />
+    <Compile Include="Model\PostScriptRenderOptions.cs" />
+    <Compile Include="Model\PostScriptRenderPdfOptions.cs" />
+    <Compile Include="Model\PostScriptRenderTiffOptions.cs" />
+    <Compile Include="Model\ProgressUpdateArgs.cs" />
+    <Compile Include="Model\RegistryConfig.cs" />
+    <Compile Include="Model\UserRegistryConfig.cs" />
+    <Compile Include="Model\PrintExts.cs" />
+    <Compile Include="Model\PrintStatus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\SessionInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
