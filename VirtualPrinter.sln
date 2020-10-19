@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.SetupDriver"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Agent.Service", "Agent\VirtualPrinter.Agent.Service\VirtualPrinter.Agent.Service.csproj", "{8C4F0640-4628-4CEA-8E31-143D68A3A70F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.IntegrationTests", "Tests\VirtualPrinter.IntegrationTests\VirtualPrinter.IntegrationTests.csproj", "{1A8B9166-7396-44BE-B03A-778C750EA253}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Delivery", "Agent\VirtualPrinter.Delivery\VirtualPrinter.Delivery.csproj", "{74FA80B3-7CF1-4B68-8AA3-4C3D37BBE855}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Agent.Console", "Agent\VirtualPrinter.Agent.Console\VirtualPrinter.Agent.Console.csproj", "{3D3A379B-F9B8-466D-A04D-FD5EF948FF1C}"
@@ -31,13 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.ProgressInfo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Agent.Core", "Common\VirtualPrinter.Agent.Core\VirtualPrinter.Agent.Core.csproj", "{135C85EB-2116-4CC4-8CCB-B6804B9D6467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.ProgressInfo.UnitTest", "Tests\VirtualPrinter.ProgressInfo.UnitTest\VirtualPrinter.ProgressInfo.UnitTest.csproj", "{2524D86F-9B55-4140-B932-00F8A1461704}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Utils", "Common\VirtualPrinter.Utils\VirtualPrinter.Utils.csproj", "{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Agent.Lib.UnitTest", "Tests\VirtualPrinter.Agent.Lib.UnitTest\VirtualPrinter.Agent.Lib.UnitTest.csproj", "{3728EEF1-DEBF-4113-8310-301B0908D387}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Logging.UnitTest", "Tests\VirtualPrinter.Logging.UnitTest\VirtualPrinter.Logging.UnitTest.csproj", "{1F6351AC-7885-4BEF-A309-3B39DAB59ABE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.Logging", "Common\VirtualPrinter.Logging\VirtualPrinter.Logging.csproj", "{AA25364D-22D5-44B0-86A5-6FB14C686308}"
 EndProject
@@ -45,8 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualPrinter.WixSharpInst
 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installer", "Installer", "{5EE0067B-1ED5-44FB-941D-8F4B039FDD2E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1937EF74-F321-49FC-B37F-0E09DDECE94B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{95284260-12AD-4C69-BF4B-6B3A7BA5627C}"
 EndProject
