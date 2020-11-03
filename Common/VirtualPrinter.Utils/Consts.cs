@@ -7,7 +7,7 @@
         public const string SETUP_DRIVER_EXE = "setupdrv.exe";
         public const string AGENT_PROGRESS_EXE = "VPDAgentProgress.exe";
         public const string DILIVERY_EXE = "delivery.exe";
-        public const string LICENCE_FILE = "";
+        public const string LICENCE_FILE = "LICENSE.rtf";
         public const string PRE_CONVERTER = @"C:\Program Files (x86)\MyPreConverter.exe ARG";
         public const string POST_CONVERTER = @"C:\Program Files (x86)\MyPostConverter.exe ARG";
     }

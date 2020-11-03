@@ -65,7 +65,7 @@ namespace VirtualPrinter.WixSharpInstaller
                 UpgradeCode = new Guid("0B37A935-EDEC-4ACA-9307-6D8299496C1D"),
                 UI = WUI.WixUI_InstallDir,
                 Version = Version.Parse(FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).FileVersion),
-                LicenceFile = Files.LICENCE_FILE,
+                LicenceFile = Path.Combine(workingDir, Files.LICENCE_FILE),
                 Dirs = CreateProjectDirs(feature, printerServiceFile),
                 Actions = CreateActions(),
                 RegValues = CreateRegValues(feature).ToArray(),
