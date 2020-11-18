@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-
+using System.Windows.Forms;
 using JetBrains.Annotations;
-
+using Microsoft.Deployment.WindowsInstaller;
+using Microsoft.Win32;
 using VirtualPrinter.Utils;
 
 using WixSharp;
@@ -14,6 +15,7 @@ using WixSharp;
 using Action = WixSharp.Action;
 using File = WixSharp.File;
 using Files = VirtualPrinter.Utils.Files;
+using Keys = VirtualPrinter.Utils.Keys;
 using RegistryHive = WixSharp.RegistryHive;
 
 namespace VirtualPrinter.WixSharpInstaller
@@ -72,7 +74,41 @@ namespace VirtualPrinter.WixSharpInstaller
                 InstallPrivileges = InstallPrivileges.elevated
             };
 
+            project.BeforeInstall += ProjectOnBeforeInstall;
+
             project.BuildMsi();
+        }
+
+        private static void ProjectOnBeforeInstall(SetupEventArgs e)
+        {
+            const string gsNotFound = "Ghostscript not found!\n" +
+                                      "Please install Ghostscript version 9.52 or higher.\n" +
+                                      "You can find the installer on the official website:\n" +
+                                      "https://www.ghostscript.com/download/gsdnld.html";
+
+            var registryView = Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32;
+
+            var gsKey = RegistryKey
+                .OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, registryView)
+                .OpenSubKey(@"SOFTWARE\GPL Ghostscript\9.52");
+
+            if (gsKey == null)
+            {
+                MessageBox.Show(gsNotFound);
+                e.Result = ActionResult.Failure;
+                return;
+            }
+
+            var gsAssembly = (string)gsKey.GetValue("GS_DLL");
+
+            if (System.IO.File.Exists(gsAssembly))
+            {
+                e.Result = ActionResult.Success;
+                return;
+            }
+
+            MessageBox.Show("gsNotFound");
+            e.Result = ActionResult.Failure;
         }
 
         [NotNull, ItemNotNull]

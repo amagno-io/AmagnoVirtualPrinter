@@ -57,6 +57,9 @@
     <PackageReference Include="WixSharp.bin" Version="1.14.8" />
     <PackageReference Include="WixSharp.wix.bin" Version="3.11.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 <!--    <Import Project="..\..\packages\WixSharp.bin\1.14.8\build\WixSharp.bin.targets" Condition="Exists('..\..\packages\WixSharp.bin\1.14.8\build\WixSharp.bin.targets')" />-->
 <!--    <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">-->
