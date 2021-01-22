@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3D3A379B-F9B8-466D-A04D-FD5EF948FF1C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AmagnoVirtualPrinter.Agent.Console</RootNamespace>
+    <AssemblyName>AmagnoVirtualPrinter.AgentConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\AmagnoVirtualPrinter.Agent.Autofac\AmagnoVirtualPrinter.Agent.Autofac.csproj">
+      <Project>{1b2f0781-82d7-4576-b936-c6a26053d6ed}</Project>
+      <Name>AmagnoVirtualPrinter.Agent.Autofac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\AmagnoVirtualPrinter.Agent.Core\AmagnoVirtualPrinter.Agent.Core.csproj">
+      <Project>{135c85eb-2116-4cc4-8ccb-b6804b9d6467}</Project>
+      <Name>AmagnoVirtualPrinter.Agent.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\AmagnoVirtualPrinter.Agent.Lib\AmagnoVirtualPrinter.Agent.Lib.csproj">
+      <Project>{94e8105f-5001-403b-b9f1-b0b0b236ad65}</Project>
+      <Name>AmagnoVirtualPrinter.Agent.Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\AmagnoVirtualPrinter.Logging\AmagnoVirtualPrinter.Logging.csproj">
+      <Project>{aa25364d-22d5-44b0-86a5-6fb14c686308}</Project>
+      <Name>AmagnoVirtualPrinter.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UI\AmagnoVirtualPrinter.ProgressInfo.Autofac\AmagnoVirtualPrinter.ProgressInfo.Autofac.csproj">
+      <Project>{17e2cf8a-462c-4130-9faf-f1ca5fc4e06d}</Project>
+      <Name>AmagnoVirtualPrinter.ProgressInfo.Autofac</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Cassia" Version="3.0.0-alpha.9" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0-rc.2.20475.5" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0-rc.2.20475.5" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
