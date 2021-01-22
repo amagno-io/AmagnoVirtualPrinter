@@ -94,6 +94,11 @@ jobs:
     
     - name: Create msi from PowerShell Script
       run: pwsh -command ".\$GITHUB_WORKSPACE\create_msi.ps1"
+    
+    - name: Upload MSI
+      uses: actions/upload-artifact@v2.2.2
+      with:
+        path: ${{github.workspace}}\AmagnoPrinterInstaller.msi     
 
     # Decode the base 64 encoded pfx and save the Signing_Certificate
     #- name: Decode the pfx
@@ -121,3 +126,4 @@ jobs:
     #  with:
     #    name: MSIX Package
     #    path: ${{ env.Wap_Project_Directory }}\AppPackages
+    
