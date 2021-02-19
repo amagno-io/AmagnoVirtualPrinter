@@ -98,7 +98,7 @@ jobs:
     - name: Upload MSI
       uses: actions/upload-artifact@v2.2.2
       with:
-        path: ${{github.workspace}}\AmagnoPrinterInstaller.msi     
+        path: .\AmagnoPrinterInstaller.msi     
 
     # Decode the base 64 encoded pfx and save the Signing_Certificate
     #- name: Decode the pfx
