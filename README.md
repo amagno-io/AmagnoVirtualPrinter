@@ -23,7 +23,7 @@ There are two ways of using the _AmagnoVirtualPrinter_:
 
 ### From MSI
 
-If you want to use the official installer, you can download it [here](https://link). Make sure to run the installer with extended rights. After installation, you may need to [configure](#configure) the _AmagnoVirtualPrinter_.
+If you want to use the official installer, you can download it [here](https://amagno.de) or use the latest release in GitHub. Make sure to run the installer with extended rights. After installation, you may need to [configure](#configure) the _AmagnoVirtualPrinter_.
 After installation, a new printer with the name set in _Defaults.cs_ can be located under _Printer & Scanner_ in the Microsoft® Windows settings.
 
 ### From Source
@@ -44,7 +44,7 @@ Alternatively use `create_msi.ps1` which automates the building step above.
 
 Make sure Ghostscript is installed on your machine.
 
-While installing, several registry entries are inserted into `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\AmagnoVirutalPrinter\`. The most important ones are those under the key `Application`
+While installing, several registry entries are inserted into `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\AmagnoVirtualPrinter\`. The most important ones are those under the key `Application`
 - **Pre-Converter:** Contains the exe to be executed (pre convert process) and the `arg` to be processed by the application (for example: `C:\Program Files\MyApp.exe PRINT`). 
 - **Post-Converter:** Contains the exe to be executed (post convert process) and the args to be processed by the application (for example: `C:\Program Files\MyApp.exe PRINTCOMPLETE`).
 
