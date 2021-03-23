@@ -8,14 +8,13 @@ using System.Linq;
 using AmagnoVirtualPrinter.Agent.Core.Interfaces;
 using AmagnoVirtualPrinter.ProgressInfo.Lib.Interfaces;
 using AmagnoVirtualPrinter.Utils;
-using AmagnoVirtualPrinter.Agent.Core;
 
 namespace AmagnoVirtualPrinter.ProgressInfo.Lib
 {
     [ExcludeFromCodeCoverage]
     public class ProgressInfoProcessManager : IProgressInfoProcessManager
     {
-        private const string ProcessName = "VPDAgentProgress";
+        private const string ProcessName = "AmagnoPrinterAgentProgress";
 
         public bool IsRunning()
         {
