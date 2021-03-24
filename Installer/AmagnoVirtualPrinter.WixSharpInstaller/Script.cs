@@ -89,8 +89,17 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
 
             var gsKey = RegistryKey
                 .OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, registryView)
-                .OpenSubKey(@"SOFTWARE\GPL Ghostscript\9.52");
+                .OpenSubKey(@"SOFTWARE\GPL Ghostscript");
 
+            if (gsKey == null)
+            {
+                MessageBox.Show(gsNotFound);
+                e.Result = ActionResult.Failure;
+                return;
+            }
+
+            var subKeyNames = gsKey.GetSubKeyNames();
+            gsKey = gsKey.OpenSubKey(subKeyNames[0]);
             if (gsKey == null)
             {
                 MessageBox.Show(gsNotFound);

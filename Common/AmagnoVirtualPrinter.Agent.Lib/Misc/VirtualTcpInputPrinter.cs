@@ -124,6 +124,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
                 if (!isJobValid)
                 {
+                    LogDebug("Job is not valid.");
                     return;
                 }
 
@@ -131,12 +132,14 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
             if (status == PrintStatus.Canceled)
             {
+                LogDebug($"Deleting file on print status: {status}");
                 DeleteFiles(ini, dir, rawFile);
             }
 
             var jobStatus = _jobService.ReadJobStatus(ini);
             if (jobStatus == JobStatus.Completed || jobStatus == JobStatus.Failed)
             {
+                LogDebug($"Deleting file on job status: {jobStatus}");
                 DeleteFiles(ini, dir, rawFile);
             }
         }
