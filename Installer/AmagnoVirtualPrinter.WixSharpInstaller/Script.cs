@@ -73,6 +73,7 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
                 InstallPrivileges = InstallPrivileges.elevated
             };
 
+            project.ControlPanelInfo.Manufacturer = "Amagno";
             project.BeforeInstall += ProjectOnBeforeInstall;
 
             project.BuildMsi();
