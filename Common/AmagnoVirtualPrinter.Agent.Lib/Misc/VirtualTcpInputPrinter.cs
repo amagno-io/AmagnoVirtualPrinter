@@ -54,15 +54,29 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
         public void Dispose()
         {
-            _watcher.Dispose();
+            _watcher?.Dispose();
             _socket.Stop();
         }
 
         public void Init()
         {
-            var config = GetRegistryConfig();
+            try
+            {
+                var config = GetRegistryConfig();
+                _socket = new TcpListener(IPAddress.Loopback, config.PrinterPort);
+                _socket.Start();
+                _socket.BeginAcceptTcpClient(HandleClient, _socket);
 
-            var dir = _directoryHelper.GetOutputDirectory(config);
+                LogDebug($"Waiting on {_socket.LocalEndpoint}...");
+            }
+            catch (Exception e)
+            {
+                LogError(e, "Error initializing tcp input printer");
+            }
+        }
+
+        private void StartFileWatcher([NotNull] string dir)
+        {
             _watcher = new FileSystemWatcher(dir, "*.ini")
             {
                 IncludeSubdirectories = false,
@@ -70,11 +84,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                 EnableRaisingEvents = true
             };
             _watcher.Changed += IniFileChanged;
-            _socket = new TcpListener(IPAddress.Loopback, config.PrinterPort);
-            _socket.Start();
-            _socket.BeginAcceptTcpClient(HandleClient, _socket);
-
-            LogDebug($"Waiting on {_socket.LocalEndpoint}...");
+            LogDebug("Setting file watcher on folder @{dir}", dir);
         }
 
         private void HandleClient([NotNull]IAsyncResult ar)
@@ -101,6 +111,19 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             socket.BeginAcceptTcpClient(HandleClient, ar.AsyncState);
 
             _jobService.Start(job);
+
+            RestartFileWatcherIfNeeded(job.SessionInfo.Sid);
+        }
+
+        private void RestartFileWatcherIfNeeded(string sid)
+        {
+            var config = GetUserRegistryConfig(sid);
+            var dir = _directoryHelper.GetOutputDirectory(config);
+
+            if (_watcher == null || _watcher.Path != dir)
+            {
+                StartFileWatcher(dir);
+            }
         }
 
         private void IniFileChanged(object sender, [NotNull]FileSystemEventArgs e)
@@ -112,7 +135,8 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
 
             var rawName = $"{Path.GetFileNameWithoutExtension(ini)}.ps";
-            var config = GetRegistryConfig();
+            var sessionInfo = _jobService.GetSessionInfo(ini);
+            var config = GetUserRegistryConfig(sessionInfo.Sid);
             var dir = _directoryHelper.GetOutputDirectory(config);
             var rawFile = Path.Combine(dir, rawName);
             var status = _jobService.ReadStatus(ini);
@@ -193,6 +217,12 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             {
                 return true;
             }
+        }
+
+        [NotNull]
+        private IUserConfig GetUserRegistryConfig(string sid)
+        {
+            return _registryRepository.GetUserRegistryConfig(sid);
         }
 
         [NotNull]

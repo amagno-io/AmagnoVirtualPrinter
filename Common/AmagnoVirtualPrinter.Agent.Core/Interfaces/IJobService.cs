@@ -43,5 +43,12 @@ namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
         /// <param name="iniPath">The path to the ini file</param>
         /// <returns><see cref="JobStatus"/></returns>
         JobStatus ReadJobStatus(string iniPath);
+
+        /// <summary>
+        /// Gets the <see cref="SessionInfo" from ini file./>
+        /// </summary>
+        /// <param name="iniFile">The path to the ini file</param>
+        /// <returns><see cref="SessionInfo"/></returns>
+        SessionInfo GetSessionInfo(string iniFile);
     }
 }

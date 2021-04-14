@@ -1,13 +1,18 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using AmagnoVirtualPrinter.Agent.Core.Interfaces;
-using AmagnoVirtualPrinter.Agent.Core;
 
 namespace AmagnoVirtualPrinter.Utils
 {
     public class DirectoryHelper : IDirectoryHelper
     {
-        public string GetOutputDirectory(IExConfig config)
+        public string GetOutputDirectory(IUserConfig config)
         {
+            if (config == null)
+            {
+                throw new ArgumentNullException(nameof(config));
+            }
+
             if (string.IsNullOrWhiteSpace(config.ResolvedOutputDirectory))
             {
                 var outputDir = Path.Combine(Path.GetTempPath(), "PrinterOutput");

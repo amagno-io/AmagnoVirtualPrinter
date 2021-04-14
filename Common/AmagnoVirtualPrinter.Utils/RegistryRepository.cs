@@ -8,8 +8,6 @@ using JetBrains.Annotations;
 
 using Microsoft.Win32;
 
-using AmagnoVirtualPrinter.Agent.Core;
-
 namespace AmagnoVirtualPrinter.Utils
 {
     public class RegistryRepository : IRegistryRepository
@@ -84,7 +82,6 @@ namespace AmagnoVirtualPrinter.Utils
                     using (var key = driver.OpenSubKey(Keys.CONVERTER_KEY))
                     {
                         CheckForNull(key, Keys.CONVERTER_KEY);
-                        registryConfig.OutputDirectory = key.GetValue(KeyNames.OUTPUT_DIR).ToString();
                         registryConfig.FileNameMask = key.GetValue(KeyNames.FILE_NAME_MASK).ToString();
                         var portStr = key.GetValue(KeyNames.SERVER_PORT).ToString();
                         registryConfig.PrinterPort = short.TryParse(portStr, out var portVal) ? portVal : DefaultServerPort;
@@ -120,6 +117,7 @@ namespace AmagnoVirtualPrinter.Utils
                     using (var converter = driver.OpenSubKey(Keys.CONVERTER_KEY))
                     {
                         CheckForNull(converter, Keys.CONVERTER_KEY);
+                        userConfig.OutputDirectory = converter.GetValue(KeyNames.OUTPUT_DIR).ToString();
 
                         subKey = "Redirect";
                         using (var redirect = converter.OpenSubKey(subKey))

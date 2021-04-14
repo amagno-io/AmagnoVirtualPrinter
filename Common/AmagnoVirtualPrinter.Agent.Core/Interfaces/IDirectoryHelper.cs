@@ -1,7 +1,10 @@
-﻿namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
+﻿using JetBrains.Annotations;
+
+namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
 {
     public interface IDirectoryHelper
     {
-        string GetOutputDirectory(IExConfig config);
+        [NotNull]
+        string GetOutputDirectory([NotNull] IUserConfig config);
     }
 }

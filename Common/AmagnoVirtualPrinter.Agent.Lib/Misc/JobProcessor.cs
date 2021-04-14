@@ -92,7 +92,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
 
             var targetFile = $"{Path.GetFileNameWithoutExtension(job.RawDataPath)}";
-            var config = _registryRepository.GetRegistryConfig();
+            var config = _registryRepository.GetUserRegistryConfig(job.SessionInfo.Sid);
             var dir = _directoryHelper.GetOutputDirectory(config);
             targetFile = Path.Combine(dir, targetFile);
 

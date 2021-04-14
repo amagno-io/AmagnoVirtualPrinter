@@ -134,8 +134,8 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
                     @"%ProgramFiles%\AmagnoPrinterDriver\",
                     new DirFiles(feature, _filesDir + @"\*", s => !s.EndsWith(".exe")),
                     new File(new Id(SetupDriverId), feature, Path.Combine(_filesDir, Utils.Files.SETUP_DRIVER_EXE)),
-                    new File(feature, Path.Combine(_filesDir, Utils.Files.DILIVERY_EXE)),
-                    new File(feature, Path.Combine(_filesDir, Utils.Files.AGENT_PROGRESS_EXE)),
+                    new File(feature, Path.Combine(_filesDir, Files.DILIVERY_EXE)),
+                    new File(feature, Path.Combine(_filesDir, Files.AGENT_PROGRESS_EXE)),
                     printerServiceFile
                 )
             };
@@ -154,7 +154,7 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
         [NotNull]
         private static IEnumerable<RegValue> CreateRegValues(Feature feature)
         {
-            var converterKey = $@"{Utils.Keys.PRINTER_DRIVER_KEY32}\{Utils.Keys.CONVERTER_KEY}";
+            var converterKey = $@"{Keys.PRINTER_DRIVER_KEY32}\{Keys.CONVERTER_KEY}";
 
             var regValues = new List<RegValue>();
             regValues.AddRange(CreateLocalMachineValues(feature, converterKey));
@@ -166,10 +166,10 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
         [NotNull]
         private static IEnumerable<RegValue> CreateLocalMachineValues(Feature feature, string converterKey)
         {
-            var postConverterKey = $@"{Utils.Keys.PRINTER_DRIVER_KEY32}\{Utils.Keys.POSTCONVERTER_KEY}";
-            var preConverterKey = $@"{Utils.Keys.PRINTER_DRIVER_KEY32}\{Utils.Keys.PRECONVERTER_KEY}";
-            var converterPdfKey = $@"{Utils.Keys.PRINTER_DRIVER_KEY32}\{Utils.Keys.CONVERTER_PDF_KEY}";
-            var converterTiffKey = $@"{Utils.Keys.PRINTER_DRIVER_KEY32}\{Utils.Keys.CONVERTER_TIFF_KEY}";
+            var postConverterKey = $@"{Keys.PRINTER_DRIVER_KEY32}\{Keys.POSTCONVERTER_KEY}";
+            var preConverterKey = $@"{Keys.PRINTER_DRIVER_KEY32}\{Keys.PRECONVERTER_KEY}";
+            var converterPdfKey = $@"{Keys.PRINTER_DRIVER_KEY32}\{Keys.CONVERTER_PDF_KEY}";
+            var converterTiffKey = $@"{Keys.PRINTER_DRIVER_KEY32}\{Keys.CONVERTER_TIFF_KEY}";
             var registryHive = RegistryHive.LocalMachine;
 
             var result = new List<RegValue>
@@ -180,7 +180,6 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
                 new RegValue(feature, registryHive, converterKey, KeyNames.SHOW_PROGRESS, 1) {AttributesDefinition = "Type=integer"},
                 new RegValue(feature, registryHive, converterKey, KeyNames.PAGES_PER_SHEET, 1),
                 new RegValue(feature, registryHive, converterKey, KeyNames.FILE_NAME_MASK, "{yyyy}{MM}{DD}{hh}{mm}{ss}{job05}{page03}"),
-                new RegValue(feature, registryHive, converterKey, KeyNames.OUTPUT_DIR, string.Empty),
                 new RegValue(feature, registryHive, converterKey, KeyNames.FORMAT, "ps"),
                 new RegValue(feature, registryHive, converterPdfKey, KeyNames.ENABLED, 1) {AttributesDefinition = "Type=integer"},
                 new RegValue(feature, registryHive, converterPdfKey, KeyNames.MULTIPAGE, 1) {AttributesDefinition = "Type=integer"},
@@ -221,6 +220,7 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
             {
                 new RegValue(feature, registryHive, converterKey, KeyNames.PRINT_FORMAT, "PDF"),
                 new RegValue(feature, registryHive, converterKey, KeyNames.RENDER_DPI, 300) {AttributesDefinition = "Type=integer"},
+                new RegValue(feature, registryHive, converterKey, KeyNames.OUTPUT_DIR, string.Empty),
                 new RegValue(feature, registryHive, redirectKey, KeyNames.ENABLED, 1) {AttributesDefinition = "Type=integer"},
                 new RegValue(feature, registryHive, redirectKey, KeyNames.PRINTER, "")
             };

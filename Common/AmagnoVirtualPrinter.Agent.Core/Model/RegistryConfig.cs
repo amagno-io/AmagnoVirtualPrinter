@@ -13,8 +13,6 @@ namespace AmagnoVirtualPrinter.Agent.Core.Model
 
         public string Preconverter { get; set; }
 
-        public string OutputDirectory { get; set; }
-
         public string FileNameMask { get; set; }
 
         public short PrinterPort { get; set; }
@@ -27,11 +25,6 @@ namespace AmagnoVirtualPrinter.Agent.Core.Model
         public Tuple<string, string> ResolvedPostconverter
         {
             get { return GetResolvedArgs(Postconverter); }
-        }
-
-        public string ResolvedOutputDirectory
-        {
-            get { return string.IsNullOrWhiteSpace(OutputDirectory) ? "" : Path.GetFullPath(OutputDirectory); }
         }
 
         public IntermediateFormat IntermediateFormat { get; set; }

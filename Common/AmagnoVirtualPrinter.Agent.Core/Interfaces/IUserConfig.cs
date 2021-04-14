@@ -22,5 +22,11 @@ namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
         /// <remarks>Intital value is PDF</remarks>
         [NotNull]
         string Format { get; }
+
+        /// <summary>
+        /// The full path of the output directory.
+        /// </summary>
+        [NotNull]
+        string ResolvedOutputDirectory { get; }
     }
 }

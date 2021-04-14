@@ -21,12 +21,6 @@ namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
         Tuple<string, string> ResolvedPostconverter { get; }
 
         /// <summary>
-        /// The full path of the output directory.
-        /// </summary>
-        [NotNull]
-        string ResolvedOutputDirectory { get; }
-
-        /// <summary>
         /// An intermediate format which is read by the printer or similar.
         /// </summary>
         IntermediateFormat IntermediateFormat { get; }

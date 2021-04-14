@@ -66,8 +66,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             try
             {
                 var now = DateTime.Now;
-                var config = _registryRepository.GetRegistryConfig();
-                var root = _directoryHelper.GetOutputDirectory(config);
+
                 var jobInfo = GetCurrentPrintJobs(printerName).FirstOrDefault();
                 if (jobInfo == null)
                 {
@@ -75,6 +74,9 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                 }
 
                 var session = GetCurrentSessions(jobInfo).FirstOrDefault();
+                var config = _registryRepository.GetRegistryConfig();
+                var userConfig = _registryRepository.GetUserRegistryConfig(session.Sid);
+                var root = _directoryHelper.GetOutputDirectory(userConfig);
                 var iniName = GenerateFileName(now, jobInfo.JobId, 0, config.FileNameMask, "ini");
                 var iniPath = Path.Combine(root, iniName);
                 var extension = GetRawFileExtension(config.IntermediateFormat);

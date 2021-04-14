@@ -98,9 +98,11 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
         public void Finish(IJob job)
         {
-            var config = _registryRepository.GetRegistryConfig();
-            WriteJobFinishIni(job.IniDataPath, config);
+            var userConfig = _registryRepository.GetUserRegistryConfig(job.SessionInfo.Sid);
+            WriteJobFinishIni(job.IniDataPath, userConfig);
+
             var iniFile = Path.GetFullPath(job.IniDataPath);
+            var config = _registryRepository.GetRegistryConfig();
             var post = config.ResolvedPostconverter;
 
             _shell.Execute(job.JobInfo, job.SessionInfo, post.Item1, $"{post.Item2} \"{iniFile}\"");
@@ -122,7 +124,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             _shell.WriteIniEntry("Preconverting", "Status", status.ToIni(), job.IniDataPath);
         }
 
-        private SessionInfo GetSessionInfo(string iniFile)
+        public SessionInfo GetSessionInfo(string iniFile)
         {
             var sessionInfo = new SessionInfo
             {
@@ -152,7 +154,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             return jobInfo;
         }
 
-        private void WriteJobFinishIni(string iniPath, [NotNull]IExConfig config)
+        private void WriteJobFinishIni(string iniPath, [NotNull]IUserConfig config)
         {
             const PrintStatus status = PrintStatus.Complete;
             const PrintJobStatus spoolerState = PrintJobStatus.Printed;
