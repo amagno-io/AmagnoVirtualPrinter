@@ -48,7 +48,8 @@ While installing, several registry entries are inserted into `Computer\HKEY_LOCA
 - **Pre-Converter:** Contains the exe to be executed (pre convert process) and the `arg` to be processed by the application (for example: `C:\Program Files\MyApp.exe PRINT`). 
 - **Post-Converter:** Contains the exe to be executed (post convert process) and the args to be processed by the application (for example: `C:\Program Files\MyApp.exe PRINTCOMPLETE`).
 
-The `Converter` key defines the settings which are needed for the convert process, e.g. server port (9101 by default) and  output directory for the converted prints, which can be processed by the application. If the value is set to an empty string, the default temp path will be used (e.g. `C:\temp\PrinterOuput`). 
+The `Converter` key defines the settings which are needed for the convert process, e.g. server port (9101 by default).
+The output directory can be set in `Computer\HKEY_CURRENT_USER\SOFTWARE\vpd\PrinterDriver\Converter` for the converted prints, which can be processed by the application. If the value is set to an empty string, the default temp path will be used (e.g. `C:\temp\PrinterOuput`). 
 ### Debugging
 
 To debug the _AmagnoVirtualPrinter_, run the msi. After installation, go to _Windows Services_ and stop the _AmagnoPrinterService_. In your IDE, select the AmagnoVirtualPrinter.Agent.Console as startup project and run in debug mode. To start a test print (and debug the solution) start  PowerShell or cmd and navigate to the root folder of the repository. Go to `Files` and run `.\setupdrv.exe test`, which will create a test page and send it to the virtual printer. Or just print any document you want to.
