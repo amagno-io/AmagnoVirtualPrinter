@@ -29,10 +29,11 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
         [NotNull]
         private readonly IJobProcessor _jobProcessor;
+
         private IDirectoryHelper _directoryHelper;
         private TcpListener _socket;
-
         private FileSystemWatcher _watcher;
+        private string _outputDir;
 
         public AmagnoVirtualTcpInputPrinter
         (
@@ -118,11 +119,11 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         private void RestartFileWatcherIfNeeded(string sid)
         {
             var config = GetUserRegistryConfig(sid);
-            var dir = _directoryHelper.GetOutputDirectory(config);
+            _outputDir = _directoryHelper.GetOutputDirectory(config);
 
-            if (_watcher == null || _watcher.Path != dir)
+            if (_watcher == null || _watcher.Path != _outputDir)
             {
-                StartFileWatcher(dir);
+                StartFileWatcher(_outputDir);
             }
         }
 
@@ -135,10 +136,8 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
 
             var rawName = $"{Path.GetFileNameWithoutExtension(ini)}.ps";
-            var sessionInfo = _jobService.GetSessionInfo(ini);
-            var config = GetUserRegistryConfig(sessionInfo.Sid);
-            var dir = _directoryHelper.GetOutputDirectory(config);
-            var rawFile = Path.Combine(dir, rawName);
+
+            var rawFile = Path.Combine(_outputDir, rawName);
             var status = _jobService.ReadStatus(ini);
 
             if (status == PrintStatus.Resumed)
@@ -157,14 +156,14 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             if (status == PrintStatus.Canceled)
             {
                 LogDebug($"Deleting file on print status: {status}");
-                DeleteFiles(ini, dir, rawFile);
+                DeleteFiles(ini, _outputDir, rawFile);
             }
 
             var jobStatus = _jobService.ReadJobStatus(ini);
             if (jobStatus == JobStatus.Completed || jobStatus == JobStatus.Failed)
             {
                 LogDebug($"Deleting file on job status: {jobStatus}");
-                DeleteFiles(ini, dir, rawFile);
+                DeleteFiles(ini, _outputDir, rawFile);
             }
         }
 
