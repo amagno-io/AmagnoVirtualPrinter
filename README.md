@@ -55,3 +55,6 @@ The output directory can be set in `Computer\HKEY_CURRENT_USER\SOFTWARE\vpd\Prin
 To debug the _AmagnoVirtualPrinter_, run the msi. After installation, go to _Windows Services_ and stop the _AmagnoPrinterService_. In your IDE, select the AmagnoVirtualPrinter.Agent.Console as startup project and run in debug mode. To start a test print (and debug the solution) start  PowerShell or cmd and navigate to the root folder of the repository. Go to `Files` and run `.\setupdrv.exe test`, which will create a test page and send it to the virtual printer. Or just print any document you want to.
 
 ## License
+
+
+
