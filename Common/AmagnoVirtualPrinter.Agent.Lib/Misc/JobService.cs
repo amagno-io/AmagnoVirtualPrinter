@@ -5,8 +5,6 @@ using AmagnoVirtualPrinter.Agent.Core.Interfaces;
 using AmagnoVirtualPrinter.Agent.Core.Model;
 using JetBrains.Annotations;
 
-using AmagnoVirtualPrinter.Agent.Core;
-
 namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 {
     public class JobService : IJobService
@@ -99,6 +97,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         public void Finish(IJob job)
         {
             var userConfig = _registryRepository.GetUserRegistryConfig(job.SessionInfo.Sid);
+
             WriteJobFinishIni(job.IniDataPath, userConfig);
 
             var iniFile = Path.GetFullPath(job.IniDataPath);

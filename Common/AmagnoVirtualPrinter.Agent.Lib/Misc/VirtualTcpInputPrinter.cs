@@ -163,6 +163,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             if (jobStatus == JobStatus.Completed || jobStatus == JobStatus.Failed)
             {
                 LogDebug($"Deleting file on job status: {jobStatus}");
+                Thread.Sleep(1000);
                 DeleteFiles(ini, _outputDir, rawFile);
             }
         }

@@ -5,9 +5,6 @@ using AmagnoVirtualPrinter.Delivery;
 using AmagnoVirtualPrinter.Logging;
 using JetBrains.Annotations;
 
-using AmagnoVirtualPrinter.Agent.Core;
-using AmagnoVirtualPrinter.Utils;
-
 namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 {
     public class JobRedirector : IJobRedirector
