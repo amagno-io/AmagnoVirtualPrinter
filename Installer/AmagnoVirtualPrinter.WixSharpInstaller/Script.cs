@@ -84,7 +84,7 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
             const string gsNotFound = "Ghostscript not found!\n" +
                                       "Please install Ghostscript version 9.52 or higher.\n" +
                                       "You can find the installer on the official website:\n" +
-                                      "https://www.ghostscript.com/download/gsdnld.html";
+                                      "https://www.ghostscript.com/releases/gsdnld.html";
 
             var registryView = Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32;
 
