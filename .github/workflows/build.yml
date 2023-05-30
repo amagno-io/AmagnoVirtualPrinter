@@ -31,12 +31,12 @@ jobs:
     - name: Create msi from PowerShell Script
       run: |
         "$Env:GITHUB_WORKSPACE\create_msi.ps1"
-    - name: Upload artifacts
+    - name: Upload installer artifact
       uses: actions/upload-artifact@v2
       with:
         name: installer
         path: ./AmagnoPrinterInstaller.msi
-    - name: Upload artifacts
+    - name: Upload files artifact
       uses: actions/upload-artifact@v2
       with:
         name: files
