@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Printing;
 using System.Security.Principal;
 using AmagnoVirtualPrinter.Agent.Core.Enums;
 using AmagnoVirtualPrinter.Agent.Core.Interfaces;
@@ -67,13 +66,15 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             {
                 var now = DateTime.Now;
 
-                var jobInfo = GetCurrentPrintJobs(printerName).FirstOrDefault();
+                var jobInfo = PrintJobReader.GetCurrentPrintJobs(printerName).FirstOrDefault();
                 if (jobInfo == null)
                 {
                     throw new InvalidOperationException();
                 }
 
-                var session = GetCurrentSessions(jobInfo).FirstOrDefault();
+                var sessions = GetCurrentSessions(jobInfo).ToArray();
+                var session = sessions.FirstOrDefault(s => s.FoundDomain) ?? sessions.FirstOrDefault();
+
                 var config = _registryRepository.GetRegistryConfig();
                 var userConfig = _registryRepository.GetUserRegistryConfig(session.Sid);
                 var root = _directoryHelper.GetOutputDirectory(userConfig);
@@ -144,11 +145,11 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         {
             var domain = job.DomainName;
             var machine = job.MachineName?.TrimStart('\\');
-            var user = job.UserName;
+            var username = job.UserName;
 
-            LogDebug($"Searching for session of {domain}\\{user} on {machine} !");
+            LogDebug($"Searching for session of {domain}\\{username} on {machine} !");
 
-            if (domain == null || machine == null || user == null)
+            if (domain == null || machine == null || username == null)
             {
                 yield break;
             }
@@ -159,7 +160,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                 var sessions = server.GetSessions().Where(s => s.UserName != null && s.DomainName != null);
                 foreach (var session in sessions)
                 {
-                    if (!session.UserName.Equals(user, cmp))
+                    if (!session.UserName.Equals(username, cmp))
                     {
                         continue;
                     }
@@ -168,7 +169,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                     var isDomainUser = session.DomainName.Equals(domain, cmp);
                     if (!isSingleUser && !isDomainUser)
                     {
-                        continue;
+                        LogWarn("Found Session {sessionId} for {username} but its not of domain {domain} or {machine}", session.SessionId, username, domain, machine);
                     }
 
                     var sessionId = session.SessionId;
@@ -178,43 +179,9 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                     {
                         Id = sessionId,
                         Desktop = desktopName,
-                        Sid = account.Translate(typeof(SecurityIdentifier)).Value
+                        Sid = account.Translate(typeof(SecurityIdentifier)).Value,
+                        FoundDomain = isSingleUser || isDomainUser
                     };
-                }
-            }
-        }
-
-        [ItemNotNull]
-        private IEnumerable<IJobInfo> GetCurrentPrintJobs(string printerName)
-        {
-            using (var server = new LocalPrintServer())
-            {
-                using (var queue = server.GetPrintQueue(printerName))
-                {
-                    using (var jobs = queue.GetPrintJobInfoCollection())
-                    {
-                        foreach (var job in jobs)
-                        {
-                            using (job)
-                            {
-                                var id = job.JobIdentifier;
-                                var machine = server.Name;
-                                var domain = Environment.UserDomainName;
-                                var user = job.Submitter;
-                                var name = job.Name;
-                                yield return new JobInfo
-                                {
-                                    JobId = id,
-                                    Name = name,
-                                    DomainName = domain,
-                                    MachineName = machine,
-                                    UserName = user,
-                                    Status = job.JobStatus,
-                                    DeviceName = queue.Name
-                                };
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -241,6 +208,11 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         private void LogError(Exception exception, string message, params object[] args)
         {
             _logger.Error(exception, message, args);
+        }
+
+        private void LogWarn(string message, params object[] args)
+        {
+            _logger.Warn(message, args);
         }
     }
 }

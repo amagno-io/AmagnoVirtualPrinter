@@ -2,12 +2,14 @@
 
 namespace AmagnoVirtualPrinter.Agent.Core.Model
 {
-    public struct SessionInfo : ISessionInfo
+    public class SessionInfo : ISessionInfo
     {
         public int Id { get; set; }
 
         public string Desktop { get; set; }
 
         public string Sid { get; set; }
+        
+        public bool FoundDomain { get; set; }
     }
 }

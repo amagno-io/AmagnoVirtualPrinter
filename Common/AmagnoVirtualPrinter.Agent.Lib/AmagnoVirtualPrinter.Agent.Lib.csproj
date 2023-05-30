@@ -41,6 +41,7 @@
     <Compile Include="Misc\Job.cs" />
     <Compile Include="Misc\JobFactory.cs" />
     <Compile Include="Misc\JobService.cs" />
+    <Compile Include="Misc\PrintJobReader.cs" />
     <Compile Include="Misc\VirtualTcpInputPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AmagnoVirtualPrinterService.cs" />

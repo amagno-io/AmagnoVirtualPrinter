@@ -4,6 +4,7 @@ using System.Linq;
 using AmagnoVirtualPrinter.Agent.Core.Enums;
 using AmagnoVirtualPrinter.Agent.Core.Interfaces;
 using AmagnoVirtualPrinter.Agent.Core.Model;
+using AmagnoVirtualPrinter.Logging;
 using JetBrains.Annotations;
 
 using Microsoft.Win32;
@@ -13,6 +14,8 @@ namespace AmagnoVirtualPrinter.Utils
     public class RegistryRepository : IRegistryRepository
     {
         private const short DefaultServerPort = 9101;
+        
+        private static readonly IVirtualPrinterLogger<RegistryRepository> Logger = new VirtualPrinterLogger<RegistryRepository>();
 
         public bool TryGetGhostscriptPath(out string path)
         {
@@ -104,6 +107,8 @@ namespace AmagnoVirtualPrinter.Utils
 
         public IUserConfig GetUserRegistryConfig(string sid)
         {
+            Logger.Trace("GetUserRegistryConfig for {sid}", sid);
+            
             var regView = GetRegistryView();
             var userConfig = new UserRegistryConfig();
 

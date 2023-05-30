@@ -62,6 +62,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
             if (ghostScriptExe == null)
             {
+                _logger.Error("GhostScript not found.");
                 throw new PostScriptConversionException("GhostScript not found. Please place local variable.");
             }
 

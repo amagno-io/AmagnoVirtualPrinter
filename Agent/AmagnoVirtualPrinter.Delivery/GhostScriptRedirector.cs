@@ -45,6 +45,7 @@ namespace AmagnoVirtualPrinter.Delivery
 
             if (ghostScriptExe == null)
             {
+                logger.Error("Can not find Ghostscript.");
                 throw new FileNotFoundException("Can not find Ghostscript.");
             }
 
