@@ -11,6 +11,7 @@ jobs:
 
   build:
     runs-on: windows-latest
+    needs: call-build
     steps:
     - name: Create msi from PowerShell Script
       run: |
