@@ -30,7 +30,7 @@ After installation, a new printer with the name set in _Defaults.cs_ can be loca
 
 #### **_Dependencies_**
 
-To compile the installer, please make sure you Wix Toolset is installed. The [WixSharp library](https://github.com/oleg-shilo/wixsharp) is used to define the package in `AmagnoVirtualPrinter.WixSharpInstaller`.
+To compile the installer, please make sure the Wix Toolset is installed. The [WixSharp library](https://github.com/oleg-shilo/wixsharp) is used to define the package in `AmagnoVirtualPrinter.WixSharpInstaller`.
 
 #### **_Create MSI package_**
 
