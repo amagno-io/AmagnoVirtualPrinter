@@ -28,9 +28,16 @@ jobs:
     
     - name: Build solution
       run: msbuild $env:solution /t:Rebuild /p:Configuration=$env:configuration
-
+    - name: Create msi from PowerShell Script
+      run: |
+        "$Env:GITHUB_WORKSPACE\create_msi.ps1"
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: artifacts
+        name: installer
+        path: AmagnoPrinterInstaller.msi
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: files
         path: files/**/*

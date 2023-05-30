@@ -20,12 +20,7 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@v3
       with:
-        name: artifacts
-        path: Files
-
-    - name: Create msi from PowerShell Script
-      run: |
-        "$Env:GITHUB_WORKSPACE\create_msi.ps1"
+        name: installer
     - name: Create Release
       uses: ncipollo/release-action@v1.7.3
       with:
