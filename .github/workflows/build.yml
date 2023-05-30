@@ -9,12 +9,7 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        configuration: [Release]
-
     runs-on: windows-latest
-
     env:
       solution: AmagnoVirtualPrinter.sln
       configuration: Release

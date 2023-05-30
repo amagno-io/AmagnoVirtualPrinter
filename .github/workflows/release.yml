@@ -9,7 +9,7 @@ jobs:
   call-build:
     uses: ./.github/workflows/build.yml
 
-  build:
+  release:
     runs-on: windows-latest
     needs: call-build
     steps:
