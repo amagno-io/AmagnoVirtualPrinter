@@ -32,12 +32,12 @@ jobs:
       run: |
         "$Env:GITHUB_WORKSPACE\create_msi.ps1"
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: installer
         path: ./AmagnoPrinterInstaller.msi
     - name: Upload files artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: files
         path: files/**/*
