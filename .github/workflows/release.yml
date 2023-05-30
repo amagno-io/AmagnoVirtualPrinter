@@ -20,7 +20,7 @@ jobs:
     - name: Download artifacts
       uses: actions/download-artifact@v3
       with:
-        name: artefacts
+        name: artifacts
         path: Files
 
     - name: Create msi from PowerShell Script
