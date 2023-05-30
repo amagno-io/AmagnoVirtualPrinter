@@ -100,6 +100,14 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
             }
 
             var subKeyNames = gsKey.GetSubKeyNames();
+
+            if (!subKeyNames.Any())
+            {
+                MessageBox.Show(gsNotFound);
+                e.Result = ActionResult.Failure;
+                return;                
+            }
+
             gsKey = gsKey.OpenSubKey(subKeyNames[0]);
             if (gsKey == null)
             {
