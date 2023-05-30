@@ -15,5 +15,5 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1.7.3
       with:
-        artifact: ./AmagnoPrinterInstaller.msi
+        artifacts: ./AmagnoPrinterInstaller.msi
         token: ${{ secrets.GITHUB_TOKEN }}
