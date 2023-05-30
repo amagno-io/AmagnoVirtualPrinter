@@ -6,13 +6,13 @@ on:
     - '*'
 
 jobs:
-  
   build:
     runs-on: windows-latest
     steps:
     - name: Create msi from PowerShell Script
-      run: pwsh -command ".\$GITHUB_WORKSPACE\create_msi.ps1"
-    
+      shell: pwsh
+      run: |
+        .\$GITHUB_WORKSPACE\create_msi.ps1
     - name: Create Release
       uses: ncipollo/release-action@v1.7.3
       with:
