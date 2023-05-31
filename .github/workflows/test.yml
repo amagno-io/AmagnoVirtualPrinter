@@ -21,14 +21,14 @@ jobs:
     - name: Create msi from PowerShell Script
       shell: pwsh
       run: |
-        "$env:GITHUB_WORKSPACE\test1.ps1"
+        "$env:GITHUB_WORKSPACE/test1.ps1"
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: installer
-        path: ./test.txt
+        path: "$env:GITHUB_WORKSPACE/test.txt"
     - name: Upload artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: files
-        path: files/**/*
+        path: "$env:GITHUB_WORKSPACE/files/**/*"
