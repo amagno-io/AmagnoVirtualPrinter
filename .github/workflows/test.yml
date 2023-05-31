@@ -22,7 +22,11 @@ jobs:
       id: create
       shell: pwsh
       run: |
-        "$env:GITHUB_WORKSPACE/test1.ps1"
+        Get-Date
+        Start-Sleep -Seconds 10
+        Get-Date
+        New-Item -Name test.txt -Value "Hi"
+      #  "$env:GITHUB_WORKSPACE/test1.ps1"
     - name: Upload artifacts
       if: steps.create.outcome == 'success'
       uses: actions/upload-artifact@v3
