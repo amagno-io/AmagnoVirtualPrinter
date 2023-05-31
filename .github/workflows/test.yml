@@ -26,9 +26,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: installer
-        path: "$env:GITHUB_WORKSPACE/test.txt"
+        path: ${{github.workspace}}/test.txt
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: files
-        path: "$env:GITHUB_WORKSPACE/files/**/*"
+        path: ${{github.workspace}}/files/**/*
