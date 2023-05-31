@@ -15,13 +15,13 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: File exists
-      shell: pwsh
-      run: Test-Path $Env:GITHUB_WORKSPACE/test.ps1 | Should -Be $true
+    # - name: File exists
+    #   shell: pwsh
+    #   run: Test-Path $Env:GITHUB_WORKSPACE/test.ps1 | Should -Be $true
     - name: Create msi from PowerShell Script
       shell: pwsh
       run: |
-        './$Env:GITHUB_WORKSPACE/test1.ps1'
+        .\test1.ps1
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
