@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Lib", "Common\AmagnoVirtualPrinter.Agent.Lib\AmagnoVirtualPrinter.Agent.Lib.csproj", "{94E8105F-5001-403B-B9F1-B0B0B236AD65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Autofac", "Common\AmagnoVirtualPrinter.Agent.Autofac\AmagnoVirtualPrinter.Agent.Autofac.csproj", "{1B2F0781-82D7-4576-B936-C6A26053D6ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Autofac", "Common\AmagnoVirtualPrinter.Agent.Autofac\AmagnoVirtualPrinter.Agent.Autofac.csproj", "{1B2F0781-82D7-4576-B936-C6A26053D6ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Agent", "Agent", "{E801472E-AAD2-4255-AA2F-F48DC4445B0B}"
 EndProject
@@ -27,11 +27,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Progre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.ProgressInfo.Core", "UI\AmagnoVirtualPrinter.ProgressInfo.Core\AmagnoVirtualPrinter.ProgressInfo.Core.csproj", "{24D28558-C825-43E6-85D2-7C59F4A97698}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Core", "Common\AmagnoVirtualPrinter.Agent.Core\AmagnoVirtualPrinter.Agent.Core.csproj", "{135C85EB-2116-4CC4-8CCB-B6804B9D6467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Core", "Common\AmagnoVirtualPrinter.Agent.Core\AmagnoVirtualPrinter.Agent.Core.csproj", "{135C85EB-2116-4CC4-8CCB-B6804B9D6467}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Utils", "Common\AmagnoVirtualPrinter.Utils\AmagnoVirtualPrinter.Utils.csproj", "{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Logging", "Common\AmagnoVirtualPrinter.Logging\AmagnoVirtualPrinter.Logging.csproj", "{AA25364D-22D5-44B0-86A5-6FB14C686308}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Logging", "Common\AmagnoVirtualPrinter.Logging\AmagnoVirtualPrinter.Logging.csproj", "{AA25364D-22D5-44B0-86A5-6FB14C686308}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.WixSharpInstaller", "Installer\AmagnoVirtualPrinter.WixSharpInstaller\AmagnoVirtualPrinter.WixSharpInstaller.csproj", "{A668846E-54C7-483D-9CF7-48F77EA398CA}"
 
