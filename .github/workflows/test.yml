@@ -3,9 +3,6 @@ name: Test
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_call:
 
 jobs:
   build:
@@ -24,7 +21,7 @@ jobs:
     - name: Create msi from PowerShell Script
       shell: pwsh
       run: |
-        "./$Env:GITHUB_WORKSPACE/test1.ps1"
+        ./$Env:GITHUB_WORKSPACE/test1.ps1
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
