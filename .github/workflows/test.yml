@@ -21,7 +21,7 @@ jobs:
     - name: Create msi from PowerShell Script
       shell: pwsh
       run: |
-        ./test1.ps1
+        & ./test1.ps1
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
