@@ -18,16 +18,12 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
+    - name: Add MSBuild to the PATH https://github.com/microsoft/setup-msbuild
       uses: microsoft/setup-msbuild@v1
-
     - name: Restore the application
-      run: msbuild $env:solution /t:Restore /p:Configuration=$env:configuration
-    
+      run: msbuild $env:solution /m /t:Restore /p:Configuration=$env:configuration
     - name: Build solution
-      run: msbuild $env:solution /t:Rebuild /p:Configuration=$env:configuration
+      run: msbuild $env:solution /m /t:Rebuild /p:Configuration=$env:configuration
     - name: Create msi from PowerShell Script
       run: pwsh -command ".\$GITHUB_WORKSPACE\create_msi.ps1"
     - name: Upload files artifact
@@ -39,4 +35,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: installer
-        path: ./AmagnoPrinterInstaller.msi
+        path: ${{github.workspace}}\AmagnoPrinterInstaller.msi
