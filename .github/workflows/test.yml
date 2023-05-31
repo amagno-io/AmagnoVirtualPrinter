@@ -19,10 +19,12 @@ jobs:
     #   shell: pwsh
     #   run: Test-Path $Env:GITHUB_WORKSPACE/test.ps1 | Should -Be $true
     - name: Create msi from PowerShell Script
+      id: create
       shell: pwsh
       run: |
         "$env:GITHUB_WORKSPACE/test1.ps1"
     - name: Upload artifacts
+      if: steps.create.outcome == 'success'
       uses: actions/upload-artifact@v3
       with:
         name: installer
