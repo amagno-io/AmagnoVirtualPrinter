@@ -29,7 +29,7 @@ jobs:
       run: pwsh -command ".\$GITHUB_WORKSPACE\create_msi.ps1"
     - name: Sign msi with PowerShell Script
       shell: powershell
-      run: .\$GITHUB_WORKSPACE\sign_files.ps1 -Path .\$GITHUB_WORKSPACE\Files -CertPath .\$GITHUB_WORKSPACE\codeSigningCert.pfx -CertPwd $env:SUPER_SECRET
+      run: powershell -file .\$GITHUB_WORKSPACE\sign_files.ps1 -Path .\$GITHUB_WORKSPACE\Files -CertPath .\$GITHUB_WORKSPACE\codeSigningCert.pfx -CertPwd $env:certificatepassword
     - name: Upload files artifact
       uses: actions/upload-artifact@v3
       with:
