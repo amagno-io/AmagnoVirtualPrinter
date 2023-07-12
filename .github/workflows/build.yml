@@ -13,6 +13,7 @@ jobs:
     env:
       solution: AmagnoVirtualPrinter.sln
       configuration: Release
+      certificatepassword: ${{ secrets.CERTIFICATEPASSWORD }}
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -24,8 +25,11 @@ jobs:
       run: msbuild $env:solution /m /t:Restore /p:Configuration=$env:configuration
     - name: Build solution
       run: msbuild $env:solution /m /t:Rebuild /p:Configuration=$env:configuration
-    - name: Create msi from PowerShell Script
+    - name: Create msi with PowerShell Script
       run: pwsh -command ".\$GITHUB_WORKSPACE\create_msi.ps1"
+    - name: Sign msi with PowerShell Script
+      shell: powershell
+      run: .\$GITHUB_WORKSPACE\sign_files.ps1 -Path .\$GITHUB_WORKSPACE\Files -CertPath .\$GITHUB_WORKSPACE\codeSigningCert.pfx -CertPwd $env:SUPER_SECRET
     - name: Upload files artifact
       uses: actions/upload-artifact@v3
       with:
