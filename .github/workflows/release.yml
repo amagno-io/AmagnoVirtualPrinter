@@ -8,9 +8,8 @@ on:
 jobs:
   call-build:
     uses: ./.github/workflows/build.yml
+    secrets: inherit
   release:
-    env:
-      certificatepassword: ${{ secrets.CERTIFICATEPASSWORD }}
     runs-on: windows-latest
     needs: call-build
     steps:
