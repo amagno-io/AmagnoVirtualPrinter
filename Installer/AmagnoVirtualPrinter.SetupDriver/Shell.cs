@@ -63,7 +63,14 @@ namespace AmagnoVirtualPrinter.SetupDriver
             try
             {
                 Console.WriteLine(exe + " " + args);
-                using(var proc = Process.Start(exe, args))
+
+                var processStartInfo = new ProcessStartInfo(exe, args)
+                {
+                    Verb = "runas",
+                    UseShellExecute = true
+                };
+                
+                using(var proc = Process.Start(processStartInfo))
                 {
                     proc?.WaitForExit();
                 }
