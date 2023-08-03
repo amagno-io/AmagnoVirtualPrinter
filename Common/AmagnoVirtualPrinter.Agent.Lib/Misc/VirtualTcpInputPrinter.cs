@@ -30,7 +30,9 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         [NotNull]
         private readonly IJobProcessor _jobProcessor;
 
-        private IDirectoryHelper _directoryHelper;
+        [NotNull]
+        private readonly IDirectoryHelper _directoryHelper;
+        
         private TcpListener _socket;
         private FileSystemWatcher _watcher;
         private string _outputDir;
@@ -101,19 +103,20 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
                 LogDebug($"{remote} --> {local}");
                 job = _jobFactory.Create(printer, client.GetStream());
-                if (job == null)
-                {
-                    LogError("Job could not be created.");
-                    return;
-                }
             }
 
-            LogDebug($"Temporarily printed '{job.RawDataPath}'!");
             socket.BeginAcceptTcpClient(HandleClient, ar.AsyncState);
-
-            _jobService.Start(job);
-
-            RestartFileWatcherIfNeeded(job.SessionInfo.Sid);
+            
+            if (job == null)
+            {
+                LogError("Job could not be created. Check your Printer Settings.");
+            }
+            else
+            {
+                LogDebug($"Temporarily printed '{job.RawDataPath}'!");
+                _jobService.Start(job);
+                RestartFileWatcherIfNeeded(job.SessionInfo.Sid);
+            }
         }
 
         private void RestartFileWatcherIfNeeded(string sid)

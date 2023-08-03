@@ -147,7 +147,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             var machine = job.MachineName?.TrimStart('\\');
             var username = job.UserName;
 
-            LogDebug($"Searching for session of {domain}\\{username} on {machine} !");
+            LogDebug($"Searching for session of {domain}\\{username} on {machine}!");
 
             if (domain == null || machine == null || username == null)
             {

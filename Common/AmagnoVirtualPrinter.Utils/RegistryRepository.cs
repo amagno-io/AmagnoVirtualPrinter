@@ -97,7 +97,7 @@ namespace AmagnoVirtualPrinter.Utils
         }
 
         [ContractAnnotation("key:null => void")]
-        private void CheckForNull(RegistryKey key, string keyName)
+        private static void CheckForNull(RegistryKey key, string keyName)
         {
             if (key == null)
             {
