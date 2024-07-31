@@ -5,8 +5,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using AmagnoVirtualPrinter.Agent.Core.Interfaces;
+using AmagnoVirtualPrinter.Logging;
 using AmagnoVirtualPrinter.ProgressInfo.Lib.Interfaces;
 using AmagnoVirtualPrinter.Utils;
+using JetBrains.Annotations;
 
 namespace AmagnoVirtualPrinter.ProgressInfo.Lib
 {
@@ -14,6 +16,14 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
     public class ProgressInfoProcessManager : IProgressInfoProcessManager
     {
         private const string ProcessName = "AmagnoPrinterAgentProgress";
+
+        [NotNull]
+        private readonly IVirtualPrinterLogger<ProgressInfoProcessManager> _logger;
+
+        public ProgressInfoProcessManager([NotNull]IVirtualPrinterLogger<ProgressInfoProcessManager> logger)
+        {
+            _logger = logger;
+        }
 
         public bool IsRunning()
         {
@@ -38,28 +48,34 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
 
             foreach (var process in processes)
             {
-                
                 KillProcess(process);
             }
         }
 
-        private static void KillProcess(Process process)
+        private void KillProcess(Process process)
         {
             try
             {
                 process.Kill();
             }
-            catch (Win32Exception)
+            catch (Win32Exception exception)
             {
                 // The associated process could not be terminated. -or-
                 // The process is terminating. -or-
-                // The associated process is a Win16 executable.                
+                // The associated process is a Win16 executable.
+                LogWarn(exception, "Failed to kill process while printing");
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException exception)
             {
                 // The process has already exited. -or-
                 // There is no process associated.
+                LogWarn(exception, "Failed to kill process while printing");
             }
+        }
+        
+        private void LogWarn(Exception exception, string message)
+        {
+            _logger.Warn("{message}:\r\nException: {exception}", message, exception);
         }
     }
 }
