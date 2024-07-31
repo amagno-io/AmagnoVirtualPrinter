@@ -1,6 +1,5 @@
-﻿using JetBrains.Annotations;
-
-using System;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -21,7 +20,7 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
             return Process.GetProcesses().Any(pList => pList.ProcessName.Contains(ProcessName));
         }
 
-        public void Run([NotNull]IJob job)
+        public void Run(IJob job)
         {
             if (job == null)
             {
@@ -37,9 +36,28 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
         {
             var processes = Process.GetProcesses().Where(pList => pList.ProcessName.Contains(ProcessName));
 
-            foreach(var process in processes)
+            foreach (var process in processes)
+            {
+                KillProcess(process);
+            }
+        }
+
+        private static void KillProcess(Process process)
+        {
+            try
             {
                 process.Kill();
+            }
+            catch (Win32Exception)
+            {
+                // The associated process could not be terminated. -or-
+                // The process is terminating. -or-
+                // The associated process is a Win16 executable.                
+            }
+            catch (InvalidOperationException)
+            {
+                // The process has already exited. -or-
+                // There is no process associated.
             }
         }
     }
