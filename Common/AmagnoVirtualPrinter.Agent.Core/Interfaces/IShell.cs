@@ -9,7 +9,7 @@ namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
         [NotNull]
         T ReadIniEntry<T>(string section, string key, string iniFilePath);
 
-        void Execute(IJobInfo job, ISessionInfo session, string exe, string args);
+        void Execute(IJobInfo job, ISessionInfo session, string exe, string args, bool userContext = true);
 
         bool FileExists([NotNull]string path);
     }

@@ -15,21 +15,21 @@ namespace AmagnoVirtualPrinter.Utils
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     [SuppressMessage("ReSharper", "ClassNeverInstantiated.Global")]
-    internal static class Win32Sys
+    public static class Win32Sys
     {
         /// <summary>
         /// Creates process with given command line via Win32 API.
         /// Use this method to start a process as a service.
         /// </summary>
-        /// <param name="sessId"></param>
+        /// <param name="sessionId"></param>
         /// <param name="user"></param>
         /// <param name="commandLine"></param>
-        internal static void CreateProcessAsUser(int sessId, string user, string commandLine)
+        public static void CreateProcessAsUser(int sessionId, string user, string commandLine)
         {
-            WTSQueryUserToken((uint) sessId, out var userToken);
+            WTSQueryUserToken((uint) sessionId, out var userToken);
             if (userToken.IsInvalid)
             {
-                throw new InvalidOperationException($"Could not query user token for session {sessId}! (" + GetLastError() + ")",
+                throw new InvalidOperationException($"Could not query user token for session {sessionId}! (" + GetLastError() + ")",
                     Windows.LastError);
             }
 

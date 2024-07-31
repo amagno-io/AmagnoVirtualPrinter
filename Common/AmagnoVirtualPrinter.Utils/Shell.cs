@@ -27,7 +27,7 @@ namespace AmagnoVirtualPrinter.Utils
             return (T)Convert.ChangeType(value, typeof(T));
         }
 
-        public void Execute(IJobInfo job, ISessionInfo session, string exe, string args)
+        public void Execute(IJobInfo job, ISessionInfo session, string exe, string args, bool userContext = true)
         {
             var thr = new Thread
             (
@@ -40,7 +40,15 @@ namespace AmagnoVirtualPrinter.Utils
 #if DEBUG
                         System.Diagnostics.Process.Start(exe, args);
 #else
-                        StartProcessAsUser(job, session, exe, args);
+
+                        if (userContext)
+                        {
+                            StartProcessAsUser(job, session, exe, args);
+                        }
+                        else
+                        {
+                            System.Diagnostics.Process.Start(exe, args);
+                        }
 #endif
                     }
                     catch (Exception exception)

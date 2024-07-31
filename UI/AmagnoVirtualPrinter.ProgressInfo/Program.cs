@@ -13,7 +13,10 @@ namespace AmagnoVirtualPrinter.ProgressInfo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ProgressForm());
+
+
+            var form = new ProgressForm();
+            Application.Run(form);
         }
     }
 }

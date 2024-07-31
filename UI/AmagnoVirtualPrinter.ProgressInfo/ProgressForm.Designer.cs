@@ -46,7 +46,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::AmagnoVirtualPrinter.ProgressInfo.Properties.Resources.waiting;
+            //this.pictureBox1.Image = global::AmagnoVirtualPrinter.ProgressInfo.Properties.Resources.waiting;
             this.pictureBox1.Location = new System.Drawing.Point(50, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 35);
