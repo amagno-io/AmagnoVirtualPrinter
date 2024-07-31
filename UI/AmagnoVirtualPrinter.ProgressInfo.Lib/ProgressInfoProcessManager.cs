@@ -30,7 +30,7 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
             return Process.GetProcesses().Any(pList => pList.ProcessName.Contains(ProcessName));
         }
 
-        public void Run(IJob job)
+        public void Run([NotNull]IJob job)
         {
             if (job == null)
             {
@@ -52,7 +52,7 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
             }
         }
 
-        private void KillProcess(Process process)
+        private void KillProcess([NotNull]Process process)
         {
             try
             {
