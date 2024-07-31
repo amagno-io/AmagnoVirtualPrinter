@@ -38,6 +38,7 @@ namespace AmagnoVirtualPrinter.ProgressInfo.Lib
 
             foreach (var process in processes)
             {
+                
                 KillProcess(process);
             }
         }
