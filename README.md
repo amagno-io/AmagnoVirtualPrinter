@@ -19,6 +19,7 @@ There are two ways of using the _AmagnoVirtualPrinter_:
     2. [Debugging](#debugging)
 3. [Create Release](#create-release)
 
+
 ## Installation
 
 ### From MSI
