@@ -45,7 +45,7 @@ Alternatively use `create_msi.ps1` which automates the building step above.
 
 Make sure Ghostscript is installed on your machine.
 
-While installing, several registry entries are inserted into `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\AmagnoVirtualPrinter\`. The most important ones are those under the key `Application`
+While installing, several registry entries are inserted into `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\vpd\PrinterDriver\`. The most important ones are those under the key `Application`
 - **Pre-Converter:** Contains the exe to be executed (pre convert process) and the `arg` to be processed by the application (for example: `C:\Program Files\MyApp.exe PRINT`). 
 - **Post-Converter:** Contains the exe to be executed (post convert process) and the args to be processed by the application (for example: `C:\Program Files\MyApp.exe PRINTCOMPLETE`).
 
