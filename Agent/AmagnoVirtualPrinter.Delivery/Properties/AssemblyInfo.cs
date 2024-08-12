@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("AmagnoVirtualPrinter.Delivery")]
@@ -14,5 +14,5 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("74fa80b3-7cf1-4b68-8aa3-4c3d37bbe855")]
 
-[assembly: AssemblyVersion("1.0.3")]
-[assembly: AssemblyFileVersion("1.0.3")]
+[assembly: AssemblyVersion("1.0.9")]
+[assembly: AssemblyFileVersion("1.0.9")]
