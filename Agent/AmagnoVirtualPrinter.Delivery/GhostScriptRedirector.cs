@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Printing;
 using AmagnoVirtualPrinter.Logging;
 using AmagnoVirtualPrinter.Utils;
 using JetBrains.Annotations;
@@ -17,16 +16,16 @@ namespace AmagnoVirtualPrinter.Delivery
         private const string GsWin32 = "gswin32c.exe";
 
         [NotNull]
-        private readonly PrintQueue _queue;
+        private readonly string _printerName;
 
-        public GhostScriptRedirector([NotNull]PrintQueue queue)
+        public GhostScriptRedirector([NotNull]string printerName)
         {
-            if (queue == null)
+            if (printerName == null)
             {
-                throw new ArgumentNullException(nameof(queue));
+                throw new ArgumentNullException(nameof(printerName));
             }
 
-            _queue = queue;
+            _printerName = printerName;
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace AmagnoVirtualPrinter.Delivery
             }
 
             // More details about the arguments can be find at https://www.ghostscript.com/doc/current/Use.htm
-            var ghostScriptArguments = $"-dPrinted -dBATCH -dNOPAUSE -dNoCancel -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -sOutputFile=\"%printer%{ _queue.FullName}\" \"{file}\"";
+            var ghostScriptArguments = $"-dPrinted -dBATCH -dNOPAUSE -dNoCancel -dNOSAFER -q -dNumCopies=1 -sDEVICE=mswinpr2 -sOutputFile=\"%printer%{ _printerName}\" \"{file}\"";
             logger.Info("Try to start the process {ghostScriptExe} with the following arguments: {ghostScriptArguments}.", ghostScriptExe, ghostScriptArguments);
 
             var processStartInfo = new ProcessStartInfo

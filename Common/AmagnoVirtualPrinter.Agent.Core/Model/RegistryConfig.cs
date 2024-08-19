@@ -28,6 +28,7 @@ namespace AmagnoVirtualPrinter.Agent.Core.Model
         }
 
         public IntermediateFormat IntermediateFormat { get; set; }
+        public string CustomRedirection { get; set; }
 
         [NotNull]
         private static Tuple<string, string> GetResolvedArgs([NotNull]string text)

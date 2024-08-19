@@ -6,7 +6,7 @@
         public const string PRINTER_SERVICE_EXE = "AmagnoPrinterAgent.exe";
         public const string SETUP_DRIVER_EXE = "setupdrv.exe";
         public const string AGENT_PROGRESS_EXE = "AmagnoPrinterAgentProgress.exe";
-        public const string DILIVERY_EXE = "delivery.exe";
+        public const string DELIVERY_EXE = "delivery.exe";
         public const string LICENCE_FILE = "LICENSE.rtf";
         public const string PRE_CONVERTER = @"C:\Program Files (x86)\MyPreConverter.exe ARG";
         public const string POST_CONVERTER = @"C:\Program Files (x86)\MyPostConverter.exe ARG";
@@ -26,6 +26,7 @@
 
     public struct KeyNames
     {
+        public const string CUSTOM_REDIRECTION_KEY = "CustomRedirection";
         public const string EXECUTABLE_FILE = "Executable File";
         public const string INSTALLATION_DIR = "Installation Directory";
         public const string THREADS = "Threads";

@@ -21,30 +21,20 @@ namespace AmagnoVirtualPrinter.Delivery
             }
 
             var file = Path.GetFullPath(filePath);
+
+            var ghostScriptRedirector = new GhostScriptRedirector(printerName);
+            ghostScriptRedirector.Redirect(file);
+        }
+        
+        public static bool PrinterExists(string printerName)
+        {
             // e.g. "Dell C2665dnf Color MFP"
             using (var localSystem = new LocalPrintServer())
             {
-                using (var queue = localSystem.GetPrintQueueSafe(printerName))
+                using (localSystem.GetPrintQueue(printerName))
                 {
-                    if (queue != null)
-                    {
-                        var ghostScriptRedirector = new GhostScriptRedirector(queue);
-                        ghostScriptRedirector.Redirect(file);
-                    }
+                    return true;
                 }
-            }
-        }
-
-        [CanBeNull]
-        private static PrintQueue GetPrintQueueSafe(this PrintServer server, string name)
-        {
-            try
-            {
-                return server.GetPrintQueue(name);
-            }
-            catch
-            {
-                return null;
             }
         }
     }

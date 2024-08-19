@@ -141,8 +141,8 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
                 (
                     @"%ProgramFiles%\AmagnoPrinterDriver\",
                     new DirFiles(feature, _filesDir + @"\*", s => !s.EndsWith(".exe")),
-                    new File(new Id(SetupDriverId), feature, Path.Combine(_filesDir, Utils.Files.SETUP_DRIVER_EXE)),
-                    new File(feature, Path.Combine(_filesDir, Files.DILIVERY_EXE)),
+                    new File(new Id(SetupDriverId), feature, Path.Combine(_filesDir, Files.SETUP_DRIVER_EXE)),
+                    new File(feature, Path.Combine(_filesDir, Files.DELIVERY_EXE)),
                     new File(feature, Path.Combine(_filesDir, Files.AGENT_PROGRESS_EXE)),
                     printerServiceFile
                 )

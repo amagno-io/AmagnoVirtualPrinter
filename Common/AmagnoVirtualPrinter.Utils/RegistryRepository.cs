@@ -70,6 +70,8 @@ namespace AmagnoVirtualPrinter.Utils
                 {
                     CheckForNull(driver, subKey);
 
+                    registryConfig.CustomRedirection = GetRegKeyStringValue(driver, KeyNames.CUSTOM_REDIRECTION_KEY);
+                    
                     using(var key = driver.OpenSubKey(Keys.POSTCONVERTER_KEY))
                     {
                         CheckForNull(key, Keys.POSTCONVERTER_KEY);
@@ -96,6 +98,18 @@ namespace AmagnoVirtualPrinter.Utils
             return registryConfig;
         }
 
+        private static string GetRegKeyStringValue(RegistryKey key, string name)
+        {
+            var value = key.GetValue(name);
+
+            if (value != null)
+            {
+                return value.ToString();
+            }
+
+            return string.Empty;
+        }
+
         [ContractAnnotation("key:null => void")]
         private static void CheckForNull(RegistryKey key, string keyName)
         {
@@ -108,7 +122,8 @@ namespace AmagnoVirtualPrinter.Utils
         public IUserConfig GetUserRegistryConfig(string sid)
         {
             Logger.Trace("GetUserRegistryConfig for {sid}", sid);
-            
+
+            var registryConfig = GetRegistryConfig();
             var regView = GetRegistryView();
             var userConfig = new UserRegistryConfig();
 
@@ -123,6 +138,11 @@ namespace AmagnoVirtualPrinter.Utils
                     {
                         CheckForNull(converter, Keys.CONVERTER_KEY);
                         userConfig.OutputDirectory = converter.GetValue(KeyNames.OUTPUT_DIR).ToString();
+
+                        if (!string.IsNullOrEmpty(registryConfig.CustomRedirection))
+                        {
+                            return userConfig;
+                        }
 
                         subKey = "Redirect";
                         using (var redirect = converter.OpenSubKey(subKey))

@@ -20,7 +20,15 @@ namespace AmagnoVirtualPrinter.Delivery
 
             switch (args[0]) {
                 case RedirectCmd: {
-                    RedirectToPrinter(args[1], args[2]);
+                    var filePath = args[1];
+                    var printerName = args[2];
+
+                    if (!PrinterExists(printerName))
+                    {
+                        Console.WriteLine($"Printer {printerName} does not exist!");
+                    }
+                    
+                    RedirectToPrinter(filePath, printerName);
                     break;
                 }
                 default: {

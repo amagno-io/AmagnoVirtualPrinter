@@ -24,5 +24,10 @@ namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
         /// An intermediate format which is read by the printer or similar.
         /// </summary>
         IntermediateFormat IntermediateFormat { get; }
+        
+        /// <summary>
+        /// Is not empty if the redirection is performed by another application
+        /// </summary>
+        string CustomRedirection { get; }
     }
 }
