@@ -26,9 +26,13 @@ namespace AmagnoVirtualPrinter.Delivery
             ghostScriptRedirector.Redirect(file);
         }
         
+        /// <summary>
+        /// Check if the printer exists
+        /// </summary>
+        /// <param name="printerName">e.g. "Dell C2665dnf Color MFP"</param>
+        /// <returns>True, if the printer exists</returns>
         public static bool PrinterExists(string printerName)
         {
-            // e.g. "Dell C2665dnf Color MFP"
             using (var localSystem = new LocalPrintServer())
             {
                 using (localSystem.GetPrintQueue(printerName))

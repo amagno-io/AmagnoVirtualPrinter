@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Utils.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Lib.Tests", "Tests\AmagnoVirtualPrinter.Agent.Lib.Tests\AmagnoVirtualPrinter.Agent.Lib.Tests.csproj", "{36CD25FD-B1E2-4C87-970F-A40CCC961390}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterDebug.Console", "PrinterDebug.Console\PrinterDebug.Console.csproj", "{74AAF6F3-E538-4295-81A0-57634C547B07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -248,6 +250,18 @@ Global
 		{36CD25FD-B1E2-4C87-970F-A40CCC961390}.Release|x64.Build.0 = Release|Any CPU
 		{36CD25FD-B1E2-4C87-970F-A40CCC961390}.Release|x86.ActiveCfg = Release|Any CPU
 		{36CD25FD-B1E2-4C87-970F-A40CCC961390}.Release|x86.Build.0 = Release|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Debug|x64.Build.0 = Debug|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Debug|x86.Build.0 = Debug|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Release|x64.ActiveCfg = Release|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Release|x64.Build.0 = Release|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Release|x86.ActiveCfg = Release|Any CPU
+		{74AAF6F3-E538-4295-81A0-57634C547B07}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

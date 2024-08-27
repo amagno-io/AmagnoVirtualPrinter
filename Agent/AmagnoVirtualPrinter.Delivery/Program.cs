@@ -23,10 +23,9 @@ namespace AmagnoVirtualPrinter.Delivery
                     var filePath = args[1];
                     var printerName = args[2];
 
-                    if (!PrinterExists(printerName))
-                    {
-                        Console.WriteLine($"Printer {printerName} does not exist!");
-                    }
+#if DEBUG
+                    CheckPrinter(printerName);
+#endif
                     
                     RedirectToPrinter(filePath, printerName);
                     break;
@@ -35,6 +34,26 @@ namespace AmagnoVirtualPrinter.Delivery
                     NotUseful();
                     break;
                 }
+            }
+        }
+
+        // ReSharper disable once UnusedMember.Local
+        /// <summary>
+        /// Can be used to debug the redirection
+        /// </summary>
+        /// <param name="printerName"></param>
+        private static void CheckPrinter(string printerName)
+        {
+            try
+            {
+                if (!PrinterExists(printerName))
+                {
+                    Console.WriteLine($"Printer {printerName} does not exist!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error checking printer:" + e);
             }
         }
 

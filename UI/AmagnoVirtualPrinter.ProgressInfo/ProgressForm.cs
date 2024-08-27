@@ -1,7 +1,10 @@
 ﻿using NamedPipeWrapper;
 using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using AmagnoVirtualPrinter.ProgressInfo.Core.Message;
+using AmagnoVirtualPrinter.ProgressInfo.Properties;
 using JetBrains.Annotations;
 
 namespace AmagnoVirtualPrinter.ProgressInfo
@@ -13,7 +16,8 @@ namespace AmagnoVirtualPrinter.ProgressInfo
         public ProgressForm()
         {
             InitializeComponent();
-
+            LoadImages();
+            
             var client = new NamedPipeClient<Core.Message.Message>(PipeName)
             {
                 AutoReconnect = true
@@ -21,6 +25,25 @@ namespace AmagnoVirtualPrinter.ProgressInfo
 
             client.ServerMessage += ServerMessage;
             client.Start(new TimeSpan(TimeSpan.TicksPerMinute));
+        }
+
+        /// <summary>
+        /// On some devices, the images cannot be loaded ( probably due to missing permissions). Because
+        /// the dialog is only displayed for a short time and the important information are displayed as
+        /// text, the problem can be ignored.
+        /// </summary>
+        private void LoadImages()
+        {
+            try
+            {
+                var resources = new ComponentResourceManager(typeof(ProgressForm));
+                pictureBox1.Image = Resources.waiting;
+                Icon = (Icon)resources.GetObject("$this.Icon");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         private void ServerMessage(NamedPipeConnection<Core.Message.Message, Core.Message.Message> connection, [NotNull]Core.Message.Message message)
