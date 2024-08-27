@@ -1,5 +1,16 @@
 # AmagnoVirtualPrinter
 
+## Table of Contents
+
+1. [Description](#description)
+2. [Installation](#installation)
+    1. [From MSI](#from-msi)
+    2. [From Source](#from-source)
+3. [Usage](#usage)
+    1. [Configure](#configure)
+    2. [Debugging](#debugging)
+4. [Create Release](#create-release)
+
 ## Description
 
 The _AmagnoVirtualPrinter_ is an interface which forwards any print job given from a specified printer, to a specified application that processes the 'print job'.
@@ -8,17 +19,6 @@ There are two ways of using the _AmagnoVirtualPrinter_:
 
 1. If you just want to install the driver build the project in release mode, navigate to the folder _VirtualPrinter.WixSharpinstaller_ and execute the created .msi file. After the installation, a new printer, with the name set in _Defaults.cs_, can be located under _Printer & Scanner_ in the Microsoft® Windows settings.
 2. To debug the _AmagnoVirtualPrinter_, follow step one. After the installation, go to _Windows Services_ and stop _AmagnoPrinterService_. In Visual Studio, select AmagnoVirtualPrinter.Agent.Console as startup project and run in debug mode. To start a test print (and debug the solution) start PowerShell or cmd and navigate to the root folder of the repository. Go to `Files` and run `.\setupdrv.exe test`, which will create a test page and send it to the virtual printer. Or just print any document you want to.
-
-## Table of Contents
-
-1. [Installation](#installation)
-    1. [From MSI](#from-msi)
-    2. [From Source](#from-source)
-2. [Usage](#usage)
-    1. [Configure](#configure)
-    2. [Debugging](#debugging)
-3. [Create Release](#create-release)
-
 
 ## Installation
 
@@ -51,6 +51,15 @@ While installing, several registry entries are inserted into `Computer\HKEY_LOCA
 
 The `Converter` key defines the settings which are needed for the convert process, e.g. server port (9101 by default).
 The output directory can be set in `Computer\HKEY_CURRENT_USER\SOFTWARE\vpd\PrinterDriver\Converter` for the converted prints, which can be processed by the application. If the value is set to an empty string, the default temp path will be used (e.g. `C:\temp\PrinterOuput`). 
+
+To use another application for print forwarding, its name can be stored in the registry. This is useful, for example, when forwarding does not work with the system account.
+```
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\vpd\PrinterDriver]
+"CustomRedirection"="Application name"
+```
+
 ### Debugging
 
 To debug the _AmagnoVirtualPrinter_, run the msi. After installation, go to _Windows Services_ and stop the _AmagnoPrinterService_. In your IDE, select the AmagnoVirtualPrinter.Agent.Console as startup project and run in debug mode. To start a test print (and debug the solution) start  PowerShell or cmd and navigate to the root folder of the repository. Go to `Files` and run `.\setupdrv.exe test`, which will create a test page and send it to the virtual printer. Or just print any document you want to.
