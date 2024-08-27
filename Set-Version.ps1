@@ -1,5 +1,5 @@
 # Define the new version numbers
-$newVersion = Read-Host "Enter the new version (e.g., 1.2.3)"
+$newVersion = Get-Content "Set-Version.txt"
 
 # Use the current directory as the root directory
 $rootDirectory = Get-Location
