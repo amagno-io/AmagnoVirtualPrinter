@@ -1,40 +1,38 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.SetupDriver", "Installer\AmagnoVirtualPrinter.SetupDriver\AmagnoVirtualPrinter.SetupDriver.csproj", "{12402F90-A2AE-4549-9142-F90650E2082A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.SetupDriver", "Installer\AmagnoVirtualPrinter.SetupDriver\AmagnoVirtualPrinter.SetupDriver.csproj", "{12402F90-A2AE-4549-9142-F90650E2082A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Service", "Agent\AmagnoVirtualPrinter.Agent.Service\AmagnoVirtualPrinter.Agent.Service.csproj", "{8C4F0640-4628-4CEA-8E31-143D68A3A70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Service", "Agent\AmagnoVirtualPrinter.Agent.Service\AmagnoVirtualPrinter.Agent.Service.csproj", "{8C4F0640-4628-4CEA-8E31-143D68A3A70F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Delivery", "Agent\AmagnoVirtualPrinter.Delivery\AmagnoVirtualPrinter.Delivery.csproj", "{74FA80B3-7CF1-4B68-8AA3-4C3D37BBE855}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Delivery", "Agent\AmagnoVirtualPrinter.Delivery\AmagnoVirtualPrinter.Delivery.csproj", "{74FA80B3-7CF1-4B68-8AA3-4C3D37BBE855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Console", "Agent\AmagnoVirtualPrinter.Agent.Console\AmagnoVirtualPrinter.Agent.Console.csproj", "{3D3A379B-F9B8-466D-A04D-FD5EF948FF1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Console", "Agent\AmagnoVirtualPrinter.Agent.Console\AmagnoVirtualPrinter.Agent.Console.csproj", "{3D3A379B-F9B8-466D-A04D-FD5EF948FF1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Lib", "Common\AmagnoVirtualPrinter.Agent.Lib\AmagnoVirtualPrinter.Agent.Lib.csproj", "{94E8105F-5001-403B-B9F1-B0B0B236AD65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Lib", "Common\AmagnoVirtualPrinter.Agent.Lib\AmagnoVirtualPrinter.Agent.Lib.csproj", "{94E8105F-5001-403B-B9F1-B0B0B236AD65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Autofac", "Common\AmagnoVirtualPrinter.Agent.Autofac\AmagnoVirtualPrinter.Agent.Autofac.csproj", "{1B2F0781-82D7-4576-B936-C6A26053D6ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Agent", "Agent", "{E801472E-AAD2-4255-AA2F-F48DC4445B0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.ProgressInfo", "UI\AmagnoVirtualPrinter.ProgressInfo\AmagnoVirtualPrinter.ProgressInfo.csproj", "{6579D542-EF21-4CF7-A9EC-7360ECEB3BBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.ProgressInfo", "UI\AmagnoVirtualPrinter.ProgressInfo\AmagnoVirtualPrinter.ProgressInfo.csproj", "{6579D542-EF21-4CF7-A9EC-7360ECEB3BBB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{CE239FC1-5CD0-4F49-A7E3-28CFAD7A5DF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.ProgressInfo.Lib", "UI\AmagnoVirtualPrinter.ProgressInfo.Lib\AmagnoVirtualPrinter.ProgressInfo.Lib.csproj", "{D66F55E5-B3F7-4C61-A4F2-B55C4D412E01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.ProgressInfo.Lib", "UI\AmagnoVirtualPrinter.ProgressInfo.Lib\AmagnoVirtualPrinter.ProgressInfo.Lib.csproj", "{D66F55E5-B3F7-4C61-A4F2-B55C4D412E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.ProgressInfo.Autofac", "UI\AmagnoVirtualPrinter.ProgressInfo.Autofac\AmagnoVirtualPrinter.ProgressInfo.Autofac.csproj", "{17E2CF8A-462C-4130-9FAF-F1CA5FC4E06D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.ProgressInfo.Autofac", "UI\AmagnoVirtualPrinter.ProgressInfo.Autofac\AmagnoVirtualPrinter.ProgressInfo.Autofac.csproj", "{17E2CF8A-462C-4130-9FAF-F1CA5FC4E06D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.ProgressInfo.Core", "UI\AmagnoVirtualPrinter.ProgressInfo.Core\AmagnoVirtualPrinter.ProgressInfo.Core.csproj", "{24D28558-C825-43E6-85D2-7C59F4A97698}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.ProgressInfo.Core", "UI\AmagnoVirtualPrinter.ProgressInfo.Core\AmagnoVirtualPrinter.ProgressInfo.Core.csproj", "{24D28558-C825-43E6-85D2-7C59F4A97698}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Core", "Common\AmagnoVirtualPrinter.Agent.Core\AmagnoVirtualPrinter.Agent.Core.csproj", "{135C85EB-2116-4CC4-8CCB-B6804B9D6467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Utils", "Common\AmagnoVirtualPrinter.Utils\AmagnoVirtualPrinter.Utils.csproj", "{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Utils", "Common\AmagnoVirtualPrinter.Utils\AmagnoVirtualPrinter.Utils.csproj", "{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Logging", "Common\AmagnoVirtualPrinter.Logging\AmagnoVirtualPrinter.Logging.csproj", "{AA25364D-22D5-44B0-86A5-6FB14C686308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.WixSharpInstaller", "Installer\AmagnoVirtualPrinter.WixSharpInstaller\AmagnoVirtualPrinter.WixSharpInstaller.csproj", "{A668846E-54C7-483D-9CF7-48F77EA398CA}"
-
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.WixSharpInstaller", "Installer\AmagnoVirtualPrinter.WixSharpInstaller\AmagnoVirtualPrinter.WixSharpInstaller.csproj", "{A668846E-54C7-483D-9CF7-48F77EA398CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Installer", "Installer", "{5EE0067B-1ED5-44FB-941D-8F4B039FDD2E}"
 EndProject
@@ -42,11 +40,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{952842
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CD57AFC1-AD22-4A86-A9D9-26D2074BF75D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Utils.UnitTests", "Tests\AmagnoVirtualPrinter.Utils.UnitTests\AmagnoVirtualPrinter.Utils.UnitTests.csproj", "{2349BD8A-03E5-4226-B3C6-56C2F718B7CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Utils.UnitTests", "Tests\AmagnoVirtualPrinter.Utils.UnitTests\AmagnoVirtualPrinter.Utils.UnitTests.csproj", "{2349BD8A-03E5-4226-B3C6-56C2F718B7CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Agent.Lib.Tests", "Tests\AmagnoVirtualPrinter.Agent.Lib.Tests\AmagnoVirtualPrinter.Agent.Lib.Tests.csproj", "{36CD25FD-B1E2-4C87-970F-A40CCC961390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AmagnoVirtualPrinter.Agent.Lib.Tests", "Tests\AmagnoVirtualPrinter.Agent.Lib.Tests\AmagnoVirtualPrinter.Agent.Lib.Tests.csproj", "{36CD25FD-B1E2-4C87-970F-A40CCC961390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrinterDebug.Console", "PrinterDebug.Console\PrinterDebug.Console.csproj", "{74AAF6F3-E538-4295-81A0-57634C547B07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmagnoVirtualPrinter.Debug.Console", "UI\AmagnoVirtualPrinter.Debug.Console\AmagnoVirtualPrinter.Debug.Console.csproj", "{74AAF6F3-E538-4295-81A0-57634C547B07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -190,30 +188,6 @@ Global
 		{135C85EB-2116-4CC4-8CCB-B6804B9D6467}.Release|x64.Build.0 = Release|Any CPU
 		{135C85EB-2116-4CC4-8CCB-B6804B9D6467}.Release|x86.ActiveCfg = Release|Any CPU
 		{135C85EB-2116-4CC4-8CCB-B6804B9D6467}.Release|x86.Build.0 = Release|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x64.Build.0 = Debug|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x86.Build.0 = Debug|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x64.ActiveCfg = Release|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x64.Build.0 = Release|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x86.ActiveCfg = Release|Any CPU
-		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x86.Build.0 = Release|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x64.Build.0 = Debug|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x86.Build.0 = Debug|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x64.ActiveCfg = Release|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x64.Build.0 = Release|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x86.ActiveCfg = Release|Any CPU
-		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x86.Build.0 = Release|Any CPU
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -226,6 +200,30 @@ Global
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}.Release|x64.Build.0 = Release|Any CPU
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3}.Release|x86.Build.0 = Release|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x64.Build.0 = Debug|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Debug|x86.Build.0 = Debug|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x64.ActiveCfg = Release|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x64.Build.0 = Release|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA25364D-22D5-44B0-86A5-6FB14C686308}.Release|x86.Build.0 = Release|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x64.Build.0 = Debug|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Debug|x86.Build.0 = Debug|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x64.ActiveCfg = Release|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x64.Build.0 = Release|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x86.ActiveCfg = Release|Any CPU
+		{A668846E-54C7-483D-9CF7-48F77EA398CA}.Release|x86.Build.0 = Release|Any CPU
 		{2349BD8A-03E5-4226-B3C6-56C2F718B7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2349BD8A-03E5-4226-B3C6-56C2F718B7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2349BD8A-03E5-4226-B3C6-56C2F718B7CB}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -278,11 +276,12 @@ Global
 		{17E2CF8A-462C-4130-9FAF-F1CA5FC4E06D} = {CE239FC1-5CD0-4F49-A7E3-28CFAD7A5DF4}
 		{24D28558-C825-43E6-85D2-7C59F4A97698} = {CE239FC1-5CD0-4F49-A7E3-28CFAD7A5DF4}
 		{135C85EB-2116-4CC4-8CCB-B6804B9D6467} = {95284260-12AD-4C69-BF4B-6B3A7BA5627C}
-		{A668846E-54C7-483D-9CF7-48F77EA398CA} = {5EE0067B-1ED5-44FB-941D-8F4B039FDD2E}
-		{AA25364D-22D5-44B0-86A5-6FB14C686308} = {95284260-12AD-4C69-BF4B-6B3A7BA5627C}
 		{CD1C8E9D-5335-41AC-B0C0-88FD7C7C55F3} = {95284260-12AD-4C69-BF4B-6B3A7BA5627C}
+		{AA25364D-22D5-44B0-86A5-6FB14C686308} = {95284260-12AD-4C69-BF4B-6B3A7BA5627C}
+		{A668846E-54C7-483D-9CF7-48F77EA398CA} = {5EE0067B-1ED5-44FB-941D-8F4B039FDD2E}
 		{2349BD8A-03E5-4226-B3C6-56C2F718B7CB} = {CD57AFC1-AD22-4A86-A9D9-26D2074BF75D}
 		{36CD25FD-B1E2-4C87-970F-A40CCC961390} = {CD57AFC1-AD22-4A86-A9D9-26D2074BF75D}
+		{74AAF6F3-E538-4295-81A0-57634C547B07} = {CE239FC1-5CD0-4F49-A7E3-28CFAD7A5DF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52642DB4-40BC-4C37-880C-73F24AE287ED}
