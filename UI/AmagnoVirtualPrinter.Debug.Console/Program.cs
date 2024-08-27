@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Printing;
 
-namespace PrinterDebug.Console
+namespace AmagnoVirtualPrinter.Debug.Console
 {
     public static class Program
     {
