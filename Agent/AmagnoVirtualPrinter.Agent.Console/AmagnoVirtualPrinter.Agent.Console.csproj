@@ -8,6 +8,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <OutputPath>bin\Release</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\AmagnoVirtualPrinter.Agent.Autofac\AmagnoVirtualPrinter.Agent.Autofac.csproj" />

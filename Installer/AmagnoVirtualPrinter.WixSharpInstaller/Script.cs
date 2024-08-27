@@ -44,9 +44,9 @@ namespace AmagnoVirtualPrinter.WixSharpInstaller
                 throw new ArgumentException("Argument for working directory (/p) not set.");
             }
 
-            _filesDir = Path.Combine(workingDir, Utils.Files.FILES);
+            _filesDir = Path.Combine(workingDir, Files.FILES);
             var feature = new Feature("AmagnoPrinter");
-            var printerServiceFile = new File(feature, Path.Combine(_filesDir, Utils.Files.PRINTER_SERVICE_EXE))
+            var printerServiceFile = new File(feature, Path.Combine(_filesDir, Files.PRINTER_SERVICE_EXE))
             {
                 ServiceInstaller = new ServiceInstaller
                 {
