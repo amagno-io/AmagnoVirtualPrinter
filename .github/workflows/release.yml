@@ -14,7 +14,7 @@ jobs:
     needs: call-build
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Download artifacts
@@ -22,7 +22,7 @@ jobs:
       with:
         name: installer
     - name: Create Release
-      uses: ncipollo/release-action@v1.7.3
+      uses: ncipollo/release-action@v1
       with:
         artifacts: ./AmagnoPrinterInstaller.msi
         token: ${{ secrets.GITHUB_TOKEN }}
