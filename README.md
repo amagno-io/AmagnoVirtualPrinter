@@ -58,4 +58,4 @@ To debug the _AmagnoVirtualPrinter_, run the msi. After installation, go to _Win
 ## Create Release
 To create a release, you have to tag a commit. Then the release pipeline compiles the source code, builds the installation, and creates the release on GitHub.
 
-Use change-version.ps1 to update the assembly and file version of all files and the setup.
+Use Set-Version.ps1 and versioninfo.txt to update the assembly and file version of all files and the setup.

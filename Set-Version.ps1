@@ -1,5 +1,4 @@
-# Define the new version numbers
-$newVersion = Get-Content "Set-Version.txt"
+$newVersion = Get-Content "versioninfo.txt"
 
 # Use the current directory as the root directory
 $rootDirectory = Get-Location
