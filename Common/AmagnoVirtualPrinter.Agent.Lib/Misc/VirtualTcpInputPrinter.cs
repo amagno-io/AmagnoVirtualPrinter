@@ -92,41 +92,56 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
         private void HandleClient([NotNull]IAsyncResult ar)
         {
-            const string printer = Defaults.PrinterName;
-            IJob job;
-
-            var socket = (TcpListener) ar.AsyncState;
-            using (var client = socket.EndAcceptTcpClient(ar))
+            try
             {
-                var local = client.Client.LocalEndPoint;
-                var remote = client.Client.RemoteEndPoint;
+                const string printer = Defaults.PrinterName;
+                IJob job;
 
-                LogDebug($"{remote} --> {local}");
-                job = _jobFactory.Create(printer, client.GetStream());
-            }
+                var socket = (TcpListener) ar.AsyncState;
+                using (var client = socket.EndAcceptTcpClient(ar))
+                {
+                    var local = client.Client.LocalEndPoint;
+                    var remote = client.Client.RemoteEndPoint;
 
-            socket.BeginAcceptTcpClient(HandleClient, ar.AsyncState);
+                    LogDebug($"{remote} --> {local}");
+                    job = _jobFactory.Create(printer, client.GetStream());
+                }
+
+                socket.BeginAcceptTcpClient(HandleClient, ar.AsyncState);
             
-            if (job == null)
-            {
-                LogError("Job could not be created. Check your Printer Settings.");
+                if (job == null)
+                {
+                    LogError("Job could not be created. Check your Printer Settings.");
+                }
+                else
+                {
+                    LogDebug($"Temporarily printed '{job.RawDataPath}'!");
+                    _jobService.Start(job);
+                    RestartFileWatcherIfNeeded(job.SessionInfo.Sid);
+                }
             }
-            else
+            catch (Exception e)
             {
-                LogDebug($"Temporarily printed '{job.RawDataPath}'!");
-                _jobService.Start(job);
-                RestartFileWatcherIfNeeded(job.SessionInfo.Sid);
+                LogError($"Exception thrown in {nameof(HandleClient)}", e);
+                throw;
             }
         }
 
         private void RestartFileWatcherIfNeeded(string sid)
         {
-            var config = GetUserRegistryConfig(sid);
-            _outputDir = _directoryHelper.GetOutputDirectory(config);
-
-            if (_watcher == null || _watcher.Path != _outputDir)
+            try
             {
-                StartFileWatcher(_outputDir);
+                var config = GetUserRegistryConfig(sid);
+                _outputDir = _directoryHelper.GetOutputDirectory(config);
+
+                if (_watcher == null || _watcher.Path != _outputDir)
+                {
+                    StartFileWatcher(_outputDir);
+                }
+            }
+            catch (Exception e)
+            {
+                LogError($"Thrown exception in {nameof(RestartFileWatcherIfNeeded)}", e);
             }
         }
 
