@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -9,42 +8,39 @@ using AmagnoVirtualPrinter.Agent.Core.Interfaces;
 using AmagnoVirtualPrinter.Agent.Core.Model;
 using AmagnoVirtualPrinter.Logging;
 using AmagnoVirtualPrinter.SetupDriver;
-using AmagnoVirtualPrinter.Agent.Core;
+using Polly;
+using Polly.Retry;
 
 namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 {
     public class AmagnoVirtualTcpInputPrinter : IAmagnoVirtualPrinter
     {
-        [NotNull]
-        private readonly IRegistryRepository _registryRepository;
+        [NotNull] private readonly IRegistryRepository _registryRepository;
 
-        [NotNull]
-        private readonly IJobFactory _jobFactory;
+        [NotNull] private readonly IJobFactory _jobFactory;
 
-        [NotNull]
-        private readonly IJobService _jobService;
+        [NotNull] private readonly IJobService _jobService;
 
-        [NotNull]
-        private readonly IVirtualPrinterLogger<AmagnoVirtualTcpInputPrinter> _logger;
+        [NotNull] private readonly IVirtualPrinterLogger<AmagnoVirtualTcpInputPrinter> _logger;
 
-        [NotNull]
-        private readonly IJobProcessor _jobProcessor;
+        [NotNull] private readonly IJobProcessor _jobProcessor;
 
-        [NotNull]
-        private readonly IDirectoryHelper _directoryHelper;
-        
+        [NotNull] private readonly IDirectoryHelper _directoryHelper;
+
         private TcpListener _socket;
+        private readonly object _socketLock = new object();
         private FileSystemWatcher _watcher;
         private string _outputDir;
+        private readonly RetryPolicy _deleteRetryPolicy;
 
         public AmagnoVirtualTcpInputPrinter
         (
-            [NotNull]IRegistryRepository registryRepository,
-            [NotNull]IVirtualPrinterLogger<AmagnoVirtualTcpInputPrinter> logger,
-            [NotNull]IJobFactory jobFactory,
-            [NotNull]IJobService jobService,
-            [NotNull]IJobProcessor jobProcessor,
-            [NotNull]IDirectoryHelper directoryHelper
+            [NotNull] IRegistryRepository registryRepository,
+            [NotNull] IVirtualPrinterLogger<AmagnoVirtualTcpInputPrinter> logger,
+            [NotNull] IJobFactory jobFactory,
+            [NotNull] IJobService jobService,
+            [NotNull] IJobProcessor jobProcessor,
+            [NotNull] IDirectoryHelper directoryHelper
         )
         {
             _registryRepository = registryRepository;
@@ -53,6 +49,13 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             _jobService = jobService;
             _jobProcessor = jobProcessor;
             _directoryHelper = directoryHelper;
+            
+            _deleteRetryPolicy = Policy
+                .Handle<IOException>()
+                .WaitAndRetry(5, retryAttempt => TimeSpan.FromMilliseconds(200), (exception, timeSpan, retryCount, context) =>
+                {
+                    LogWarn($"Attempt {retryCount} to delete file failed. Retrying in {timeSpan.TotalSeconds} seconds...");
+                });
         }
 
         public void Dispose()
@@ -63,18 +66,52 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
         public void Init()
         {
+            StartListener();
+        }
+
+        private void StartListener()
+        {
             try
             {
                 var config = GetRegistryConfig();
-                _socket = new TcpListener(IPAddress.Loopback, config.PrinterPort);
-                _socket.Start();
-                _socket.BeginAcceptTcpClient(HandleClient, _socket);
+                lock (_socketLock)
+                {
+                    _socket = new TcpListener(IPAddress.Loopback, config.PrinterPort);
+                    _socket.Start();
+                    _socket.BeginAcceptTcpClient(HandleClient, _socket);
+                }
 
                 LogDebug($"Waiting on {_socket.LocalEndpoint}...");
             }
             catch (Exception e)
             {
                 LogError(e, "Error initializing tcp input printer");
+            }
+        }
+
+        private void StopListener()
+        {
+            lock (_socketLock)
+            {
+                if (_socket == null)
+                {
+                    return;
+                }
+            
+                _socket.Stop();
+                _socket = null;
+            }
+        }
+
+        private void RestartListener()
+        {
+            LogInfo("Attempt to restart the TCP listener");
+            
+            lock (_socketLock)
+            {
+                StopListener();
+                Thread.Sleep(500);
+                StartListener();
             }
         }
 
@@ -90,14 +127,22 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             LogDebug("Setting file watcher on folder @{dir}", dir);
         }
 
-        private void HandleClient([NotNull]IAsyncResult ar)
+        private void HandleClient([NotNull] IAsyncResult ar)
         {
+            var socket = (TcpListener)ar.AsyncState;
+
+            if (socket == null)
+            {
+                LogError("{method}: socket is null. Unable to handle result. @{result}", nameof(HandleClient), ar);
+                RestartListener();
+                return;
+            }
+            
             try
             {
                 const string printer = Defaults.PrinterName;
                 IJob job;
-
-                var socket = (TcpListener) ar.AsyncState;
+                
                 using (var client = socket.EndAcceptTcpClient(ar))
                 {
                     var local = client.Client.LocalEndPoint;
@@ -107,8 +152,8 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                     job = _jobFactory.Create(printer, client.GetStream());
                 }
 
-                socket.BeginAcceptTcpClient(HandleClient, ar.AsyncState);
-            
+                socket.BeginAcceptTcpClient(HandleClient, socket);
+
                 if (job == null)
                 {
                     LogError("Job could not be created. Check your Printer Settings.");
@@ -145,7 +190,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
         }
 
-        private void IniFileChanged(object sender, [NotNull]FileSystemEventArgs e)
+        private void IniFileChanged(object sender, [NotNull] FileSystemEventArgs e)
         {
             var ini = e.FullPath;
             if (!ini.ToLowerInvariant().EndsWith(".ini"))
@@ -171,6 +216,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
                 ProcessFile(rawFile, ini);
             }
+
             if (status == PrintStatus.Canceled)
             {
                 LogDebug($"Deleting file on print status: {status}");
@@ -186,7 +232,38 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
         }
 
-        private void DeleteFiles([NotNull]string ini, [NotNull]string outputDir, [NotNull]string rawFile)
+        private void DeleteFileSafe([NotNull] string filePath)
+        {
+            try
+            {
+                _deleteRetryPolicy.Execute(() =>
+                {
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                        LogTrace($"File deleted successfully: {filePath}");
+                    }
+                    else
+                    {
+                        LogWarn($"File not found, skipping delete: {filePath}");
+                    }
+                });
+            }
+            catch (IOException ex)
+            {
+                LogError(ex, $"Failed to delete file due to IOException after multiple attempts: {filePath}");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                LogError(ex, $"Failed to delete file due to UnauthorizedAccessException after multiple attempts: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, $"Unexpected error occurred while deleting file: {filePath}");
+            }
+        }
+
+        private void DeleteFiles([NotNull] string ini, [NotNull] string outputDir, [NotNull] string rawFile)
         {
             if (string.IsNullOrWhiteSpace(ini))
             {
@@ -208,23 +285,23 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
             if (File.Exists(pdfFile) && !IsFileLocked(pdfFile))
             {
-                File.Delete(pdfFile);
+                DeleteFileSafe(pdfFile);
             }
 
             if (File.Exists(tiffFile) && !IsFileLocked(tiffFile))
             {
-                File.Delete(tiffFile);
+                DeleteFileSafe(tiffFile);
             }
 
-            File.Delete(ini);
-            File.Delete(rawFile);
+            DeleteFileSafe(ini);
+            DeleteFileSafe(rawFile);
         }
 
         private bool IsFileLocked(string filePath)
         {
             try
             {
-                using(var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 {
                     stream.Close();
                 }
@@ -249,7 +326,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             return _registryRepository.GetRegistryConfig();
         }
 
-        private bool IsJobValid([CanBeNull]IJob job)
+        private bool IsJobValid([CanBeNull] IJob job)
         {
             if (job == null)
             {
@@ -283,7 +360,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         {
             var thread = new Thread(obj =>
             {
-                var tuple = (Tuple<string, string>) obj;
+                var tuple = (Tuple<string, string>)obj;
                 var rawFile = tuple.Item1;
                 var ini = tuple.Item2;
 
@@ -323,6 +400,21 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         private void LogDebug(string message, params object[] args)
         {
             _logger.Debug(message, args);
+        }
+
+        private void LogWarn(string message, params object[] args)
+        {
+            _logger.Warn(message, args);
+        }
+
+        private void LogInfo(string message, params object[] args)
+        {
+            _logger.Info(message, args);
+        }
+
+        private void LogTrace(string message, params object[] args)
+        {
+            _logger.Trace(message, args);
         }
     }
 }
