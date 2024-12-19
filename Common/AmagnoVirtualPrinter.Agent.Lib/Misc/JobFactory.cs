@@ -64,13 +64,13 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                 var jobInfo = GetJobInfo(printerName);
                 var session = GetSessionInfo(jobInfo);
                 var userConfig = GetUserConfig(session);
-                var root = _directoryHelper.GetOutputDirectory(userConfig);
+                var outputDirectory = GetPrinterOutputDirectory(userConfig);
                 var config = _registryRepository.GetRegistryConfig();
                 var iniName = GenerateFileName(now, jobInfo.JobId, 0, config.FileNameMask, "ini");
-                var iniPath = Path.Combine(root, iniName);
+                var iniPath = Path.Combine(outputDirectory, iniName);
                 var extension = GetRawFileExtension(config.IntermediateFormat);
                 var rawName = $"{Path.GetFileNameWithoutExtension(iniName)}.{extension}";
-                var rawPath = Path.Combine(root, rawName);
+                var rawPath = Path.Combine(outputDirectory, rawName);
                 using (var output = File.Create(rawPath))
                 {
                     stream.CopyTo(output);
@@ -88,6 +88,19 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             {
                 LogError(exception, "Failed to create job.");
                 return null;
+            }
+        }
+
+        private string GetPrinterOutputDirectory(IUserConfig userConfig)
+        {
+            try
+            {
+                var root = _directoryHelper.GetOutputDirectory(userConfig);
+                return root;
+            }
+            catch (Exception e)
+            {
+                throw new AggregateException("Failed to get output directory.", e);
             }
         }
 

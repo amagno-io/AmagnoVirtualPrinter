@@ -44,8 +44,8 @@ namespace AmagnoVirtualPrinter.Utils
                                 return false;
                             }
 
-                            path = Directory.GetParent(path).FullName;
-                            return true;
+                            path = Directory.GetParent(path)?.FullName;
+                            return !string.IsNullOrWhiteSpace(path);
                         }
                     }
                 }
@@ -59,6 +59,18 @@ namespace AmagnoVirtualPrinter.Utils
         }
 
         public IExConfig GetRegistryConfig()
+        {
+            try
+            {
+                return GetRegistryConfigInternal();
+            }
+            catch (Exception e)
+            {
+                throw new RegistryException("Error getting registry config", e);
+            }
+        }
+
+        private IExConfig GetRegistryConfigInternal()
         {
             var regView = GetRegistryView();
             var subKey = GetSubKey();
