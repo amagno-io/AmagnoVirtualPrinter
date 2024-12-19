@@ -8,26 +8,22 @@ using AmagnoVirtualPrinter.Agent.Core.Interfaces;
 using AmagnoVirtualPrinter.Agent.Core.Model;
 using AmagnoVirtualPrinter.Logging;
 using Cassia;
-
 using JetBrains.Annotations;
-
-using AmagnoVirtualPrinter.Agent.Core;
+using AmagnoVirtualPrinter.Utils;
 
 namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 {
     public class JobFactory : IJobFactory
     {
-        [NotNull]
-        private readonly IVirtualPrinterLogger<JobFactory> _logger;
+        [NotNull] private readonly IVirtualPrinterLogger<JobFactory> _logger;
         private readonly IDirectoryHelper _directoryHelper;
-        [NotNull]
-        private readonly IRegistryRepository _registryRepository;
+        [NotNull] private readonly IRegistryRepository _registryRepository;
 
         public JobFactory
         (
-            [NotNull]IRegistryRepository registryRepository,
-            [NotNull]IVirtualPrinterLogger<JobFactory> logger,
-            [NotNull]IDirectoryHelper directoryHelper
+            [NotNull] IRegistryRepository registryRepository,
+            [NotNull] IVirtualPrinterLogger<JobFactory> logger,
+            [NotNull] IDirectoryHelper directoryHelper
         )
         {
             if (registryRepository == null)
@@ -65,19 +61,11 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             try
             {
                 var now = DateTime.Now;
-
-                var jobInfo = PrintJobReader.GetCurrentPrintJobs(printerName).FirstOrDefault();
-                if (jobInfo == null)
-                {
-                    throw new InvalidOperationException();
-                }
-
-                var sessions = GetCurrentSessions(jobInfo).ToArray();
-                var session = sessions.FirstOrDefault(s => s.FoundDomain) ?? sessions.FirstOrDefault();
-
-                var config = _registryRepository.GetRegistryConfig();
-                var userConfig = _registryRepository.GetUserRegistryConfig(session.Sid);
+                var jobInfo = GetJobInfo(printerName);
+                var session = GetSessionInfo(jobInfo);
+                var userConfig = GetUserConfig(session);
                 var root = _directoryHelper.GetOutputDirectory(userConfig);
+                var config = _registryRepository.GetRegistryConfig();
                 var iniName = GenerateFileName(now, jobInfo.JobId, 0, config.FileNameMask, "ini");
                 var iniPath = Path.Combine(root, iniName);
                 var extension = GetRawFileExtension(config.IntermediateFormat);
@@ -103,6 +91,43 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             }
         }
 
+        private IUserConfig GetUserConfig(SessionInfo session)
+        {
+            var userConfig = _registryRepository.GetUserRegistryConfig(session.Sid);
+
+            if (userConfig == null)
+            {
+                throw new InvalidOperationException($"User registry config for {session.Sid} not found");
+            }
+
+            return userConfig;
+        }
+
+        private SessionInfo GetSessionInfo(IJobInfo jobInfo)
+        {
+            var sessions = GetCurrentSessions(jobInfo).ToArray();
+            var session = sessions.FirstOrDefault(s => s.FoundDomain) ?? sessions.FirstOrDefault();
+            if (session == null)
+            {
+                var jobInfoText = jobInfo.ObjectToString();
+                throw new InvalidOperationException(
+                    $"Unable to retrieve printer session for. JobInfo: {jobInfoText} Sessions: {sessions.Length}");
+            }
+
+            return session;
+        }
+
+        private static IJobInfo GetJobInfo(string printerName)
+        {
+            var jobInfo = PrintJobReader.GetCurrentPrintJobs(printerName).FirstOrDefault();
+            if (jobInfo == null)
+            {
+                throw new InvalidOperationException("Unable to retrieve printer job.");
+            }
+
+            return jobInfo;
+        }
+
         public IJob Create(string iniPath, string rawPath, IJobInfo jobInfo, ISessionInfo sessionInfo)
         {
             if (string.IsNullOrWhiteSpace(iniPath))
@@ -125,7 +150,8 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         }
 
         [NotNull]
-        private string GenerateFileName(DateTime time, int job, int page, [NotNull]string pattern, [NotNull]string ending)
+        private string GenerateFileName(DateTime time, int job, int page, [NotNull] string pattern,
+            [NotNull] string ending)
         {
             var fileName = pattern;
             fileName = fileName.Replace("{yyyy}", $"{time.Year:0000}");
@@ -141,7 +167,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             return $"{fileName}.{ending}";
         }
 
-        private IEnumerable<SessionInfo> GetCurrentSessions([NotNull]IJobInfo job)
+        private IEnumerable<SessionInfo> GetCurrentSessions([NotNull] IJobInfo job)
         {
             var domain = job.DomainName;
             var machine = job.MachineName?.TrimStart('\\');
@@ -169,7 +195,8 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                     var isDomainUser = session.DomainName.Equals(domain, cmp);
                     if (!isSingleUser && !isDomainUser)
                     {
-                        LogWarn("Found Session {sessionId} for {username} but its not of domain {domain} or {machine}", session.SessionId, username, domain, machine);
+                        LogWarn("Found Session {sessionId} for {username} but its not of domain {domain} or {machine}",
+                            session.SessionId, username, domain, machine);
                     }
 
                     var sessionId = session.SessionId;
