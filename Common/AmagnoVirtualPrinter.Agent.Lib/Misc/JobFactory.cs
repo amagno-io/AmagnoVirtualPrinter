@@ -16,7 +16,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
     public class JobFactory : IJobFactory
     {
         [NotNull] private readonly IVirtualPrinterLogger<JobFactory> _logger;
-        private readonly IDirectoryHelper _directoryHelper;
+        [NotNull] private readonly IDirectoryHelper _directoryHelper;
         [NotNull] private readonly IRegistryRepository _registryRepository;
 
         public JobFactory
@@ -38,7 +38,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
             if (directoryHelper == null)
             {
-                throw new ArgumentNullException(nameof(logger));
+                throw new ArgumentNullException(nameof(directoryHelper));
             }
 
             _registryRepository = registryRepository;

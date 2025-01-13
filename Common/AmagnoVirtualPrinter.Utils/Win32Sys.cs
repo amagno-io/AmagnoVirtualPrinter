@@ -56,13 +56,13 @@ namespace AmagnoVirtualPrinter.Utils
                 var result = LoadUserProfile(token, ref info);
                 if (!result)
                 {
-                    throw Windows.LastError;
+                    throw new UserProfileException($"Can not load user profile for User: {user} and command line: {commandLine}.", Windows.LastError);
                 }
 
                 result = CreateEnvironmentBlock(out var lpEnvironment, token, false);
                 if (!result)
                 {
-                    throw Windows.LastError;
+                    throw new UserProfileException($"Can not create environment block for User: {user} and command line: {commandLine}.", Windows.LastError);
                 }
 
                 result = CreateProcessAsUser
@@ -82,7 +82,7 @@ namespace AmagnoVirtualPrinter.Utils
 
                 if (!result)
                 {
-                    throw Windows.LastError;
+                    throw new UserProfileException($"Can not create process as user for User: {user} and command line: {commandLine}.", Windows.LastError);
                 }
             }
             finally
