@@ -46,7 +46,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             var printer = userConfig.RedirectPrinter;
             if (string.IsNullOrWhiteSpace(printer))
             {
-                LogWarn("Can not redirect to empty printer.");
+                LogDebug("No redirect printer has been specified.");
                 return;
             }
 

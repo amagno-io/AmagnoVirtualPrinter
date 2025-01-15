@@ -228,26 +228,42 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             if (jobStatus == JobStatus.Completed || jobStatus == JobStatus.Failed)
             {
                 LogDebug($"Deleting file on job status: {jobStatus}");
-                Thread.Sleep(1000);
                 DeleteFiles(ini, _outputDir, rawFile);
             }
+        }
+
+        private void DeleteFiles([NotNull] string ini, [NotNull] string outputDir, [NotNull] string rawFile)
+        {
+            var thread = new Thread(_ =>
+            {
+                var pdfFile = Path.Combine(outputDir, $"{Path.GetFileNameWithoutExtension(ini)}.pdf");
+                DeleteFileSafe(pdfFile);
+
+                var tiffFile = Path.Combine(outputDir, $"{Path.GetFileNameWithoutExtension(ini)}.tif");
+                DeleteFileSafe(tiffFile);
+
+                DeleteFileSafe(ini);
+
+                DeleteFileSafe(rawFile);
+            });
+
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
         private void DeleteFileSafe([NotNull] string filePath)
         {
             try
             {
+                if (!File.Exists(filePath))
+                {
+                    return;
+                }
+
                 _deleteRetryPolicy.Execute(() =>
                 {
-                    if (File.Exists(filePath))
-                    {
-                        File.Delete(filePath);
-                        LogTrace($"File deleted successfully: {filePath}");
-                    }
-                    else
-                    {
-                        LogWarn($"File not found, skipping delete: {filePath}");
-                    }
+                    File.Delete(filePath);
+                    LogTrace($"File deleted successfully: {filePath}");
                 });
             }
             catch (IOException ex)
@@ -261,57 +277,6 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             catch (Exception ex)
             {
                 LogError(ex, $"Unexpected error occurred while deleting file: {filePath}");
-            }
-        }
-
-        private void DeleteFiles([NotNull] string ini, [NotNull] string outputDir, [NotNull] string rawFile)
-        {
-            if (string.IsNullOrWhiteSpace(ini))
-            {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(ini));
-            }
-
-            if (string.IsNullOrWhiteSpace(outputDir))
-            {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(outputDir));
-            }
-
-            if (string.IsNullOrWhiteSpace(rawFile))
-            {
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(rawFile));
-            }
-
-            var pdfFile = Path.Combine(outputDir, $"{Path.GetFileNameWithoutExtension(ini)}.pdf");
-            var tiffFile = Path.Combine(outputDir, $"{Path.GetFileNameWithoutExtension(ini)}.tif");
-
-            if (File.Exists(pdfFile) && !IsFileLocked(pdfFile))
-            {
-                DeleteFileSafe(pdfFile);
-            }
-
-            if (File.Exists(tiffFile) && !IsFileLocked(tiffFile))
-            {
-                DeleteFileSafe(tiffFile);
-            }
-
-            DeleteFileSafe(ini);
-            DeleteFileSafe(rawFile);
-        }
-
-        private bool IsFileLocked(string filePath)
-        {
-            try
-            {
-                using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    stream.Close();
-                }
-
-                return false;
-            }
-            catch (IOException)
-            {
-                return true;
             }
         }
 
