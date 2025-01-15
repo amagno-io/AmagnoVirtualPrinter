@@ -49,7 +49,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             _jobService = jobService;
             _jobProcessor = jobProcessor;
             _directoryHelper = directoryHelper;
-            
+
             _deleteRetryPolicy = Policy
                 .Handle<IOException>()
                 .WaitAndRetry(5, retryAttempt => TimeSpan.FromMilliseconds(200), (exception, timeSpan, retryCount, context) =>
@@ -97,7 +97,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                 {
                     return;
                 }
-            
+
                 _socket.Stop();
                 _socket = null;
             }
@@ -106,7 +106,7 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         private void RestartListener()
         {
             LogInfo("Attempt to restart the TCP listener");
-            
+
             lock (_socketLock)
             {
                 StopListener();
@@ -121,7 +121,8 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
             {
                 IncludeSubdirectories = false,
                 NotifyFilter = NotifyFilters.LastWrite,
-                EnableRaisingEvents = true
+                EnableRaisingEvents = true,
+                InternalBufferSize = 1024 * 1024
             };
             _watcher.Changed += IniFileChanged;
             LogDebug("Setting file watcher on folder @{dir}", dir);
@@ -137,12 +138,12 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
                 RestartListener();
                 return;
             }
-            
+
             try
             {
                 const string printer = Defaults.PrinterName;
                 IJob job;
-                
+
                 using (var client = socket.EndAcceptTcpClient(ar))
                 {
                     var local = client.Client.LocalEndPoint;
