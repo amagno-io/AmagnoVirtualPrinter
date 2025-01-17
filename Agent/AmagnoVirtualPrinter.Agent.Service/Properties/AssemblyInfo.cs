@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 
 [assembly: Guid("8c4f0640-4628-4cea-8e31-143d68a3a70f")]
 
-[assembly: AssemblyVersion("1.1.7")]
-[assembly: AssemblyFileVersion("1.1.7")]
+[assembly: AssemblyVersion("1.1.8")]
+[assembly: AssemblyFileVersion("1.1.8")]
 
 // For testing
 [assembly: InternalsVisibleTo("AmagnoVirtualPrinter.Test")]
