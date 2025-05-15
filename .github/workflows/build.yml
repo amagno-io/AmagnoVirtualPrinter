@@ -37,7 +37,7 @@ jobs:
       shell: powershell
       run: powershell -file .\$GITHUB_WORKSPACE\sign_setup.ps1 -CertPath .\$GITHUB_WORKSPACE\codeSigningCert.pfx -CertPwd $env:certificatepassword
     - name: Upload files artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: files
         path: files/**/*
