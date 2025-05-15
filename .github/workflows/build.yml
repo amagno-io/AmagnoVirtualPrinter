@@ -42,7 +42,7 @@ jobs:
         name: files
         path: files/**/*
     - name: Upload installer artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: installer
         path: ${{github.workspace}}\AmagnoPrinterInstaller.msi
