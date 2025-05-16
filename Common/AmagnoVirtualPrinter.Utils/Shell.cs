@@ -27,7 +27,7 @@ namespace AmagnoVirtualPrinter.Utils
             return (T)Convert.ChangeType(value, typeof(T));
         }
 
-        public void Execute(IJobInfo job, ISessionInfo session, string exe, string args)
+        public Thread Execute(IJobInfo job, ISessionInfo session, string exe, string args)
         {
             var thr = new Thread
             (
@@ -38,7 +38,8 @@ namespace AmagnoVirtualPrinter.Utils
                         if (!File.Exists(exe))
                             throw new FileNotFoundException(exe);
 #if DEBUG
-                        System.Diagnostics.Process.Start(exe, args);
+                        var process = System.Diagnostics.Process.Start(exe, args);
+                        process?.WaitForExit();
 #else
                         StartProcessAsUser(job, session, exe, args);
 #endif
@@ -51,6 +52,7 @@ namespace AmagnoVirtualPrinter.Utils
             );
 
             thr.Start();
+            return thr;
         }
 
         public bool FileExists(string path)

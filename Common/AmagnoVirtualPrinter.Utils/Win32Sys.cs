@@ -84,6 +84,9 @@ namespace AmagnoVirtualPrinter.Utils
                 {
                     throw new UserProfileException($"Can not create process as user for User: {user} and command line: {commandLine}.", Windows.LastError);
                 }
+                
+                const uint INFINITE = 0xFFFFFFFF;
+                WaitForSingleObject(processInformation.hProcess, INFINITE);
             }
             finally
             {
@@ -233,6 +236,9 @@ namespace AmagnoVirtualPrinter.Utils
             string val,
             string filePath
         );
+        
+        [DllImport("kernel32.dll")]
+        private static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
 
         #endregion
     }

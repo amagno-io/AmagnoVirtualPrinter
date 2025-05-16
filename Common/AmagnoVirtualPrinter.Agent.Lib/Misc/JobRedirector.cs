@@ -58,8 +58,9 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
                 var redirectExe = Path.GetFullPath(typeof(Redirector).Assembly.Location);
                 var redirectArgs = $@"redirect ""{pdfToRedirect}"" ""{printer}""";
-
-                _shell.Execute(job.JobInfo, job.SessionInfo, redirectExe, redirectArgs);
+                
+                var thread = _shell.Execute(job.JobInfo, job.SessionInfo, redirectExe, redirectArgs);
+                thread.Join();
             }
             catch (Exception exception)
             {
