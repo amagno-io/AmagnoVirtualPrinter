@@ -60,13 +60,12 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
 
             try
             {
-                var now = DateTime.Now;
                 var jobInfo = GetJobInfo(printerName);
                 var session = GetSessionInfo(jobInfo);
                 var userConfig = GetUserConfig(session);
                 var outputDirectory = GetPrinterOutputDirectory(userConfig);
                 var config = _registryRepository.GetRegistryConfig();
-                var iniName = GenerateFileName(now, jobInfo.JobId, 0, config.FileNameMask, "ini");
+                var iniName = GenerateFileName("ini");
                 var iniPath = Path.Combine(outputDirectory, iniName);
                 var extension = GetRawFileExtension(config.IntermediateFormat);
                 var rawName = $"{Path.GetFileNameWithoutExtension(iniName)}.{extension}";
@@ -163,20 +162,9 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         }
 
         [NotNull]
-        private string GenerateFileName(DateTime time, int job, int page, [NotNull] string pattern,
-            [NotNull] string ending)
+        private string GenerateFileName([NotNull] string ending)
         {
-            var fileName = pattern;
-            fileName = fileName.Replace("{yyyy}", $"{time.Year:0000}");
-            fileName = fileName.Replace("{MM}", $"{time.Month:00}");
-            fileName = fileName.Replace("{DD}", $"{time.Day:00}");
-            fileName = fileName.Replace("{hh}", $"{time.Hour:00}");
-            fileName = fileName.Replace("{mm}", $"{time.Minute:00}");
-            fileName = fileName.Replace("{ss}", $"{time.Second:00}");
-            fileName = fileName.Replace("{fff}", $"{time.Millisecond:000}");
-            fileName = fileName.Replace("{job05}", $"{job:00000}");
-            fileName = fileName.Replace("{page03}", $"{page:000}");
-
+            var fileName = Guid.NewGuid().ToString("N");
             return $"{fileName}.{ending}";
         }
 
