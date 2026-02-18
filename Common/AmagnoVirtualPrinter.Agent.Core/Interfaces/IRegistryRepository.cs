@@ -9,7 +9,7 @@ namespace AmagnoVirtualPrinter.Agent.Core.Interfaces
         /// </summary>
         /// <returns>True if the path exists.</returns>
         [ContractAnnotation("=>true,path:notnull; =>false,path:null")]
-        bool TryGetGhostscriptPath(out string path);
+        bool TryGetGhostscriptPath(bool use64Bit, out string path);
 
         /// <summary>
         /// Get the <see cref="IExConfig"/> from the registry.

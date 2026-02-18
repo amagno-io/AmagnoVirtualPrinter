@@ -98,13 +98,13 @@ namespace AmagnoVirtualPrinter.Agent.Lib.Misc
         [CanBeNull]
         private string GetGhostScriptPath()
         {
-            return GetGhostScriptPath(GsWin64) ?? GetGhostScriptPath(GsWin32);
+            return GetGhostScriptPath(GsWin64, true) ?? GetGhostScriptPath(GsWin32, false);
         }
 
         [CanBeNull]
-        private string GetGhostScriptPath(string execName)
+        private string GetGhostScriptPath(string execName, bool use64Bit)
         {
-            if (!_registryRepository.TryGetGhostscriptPath(out var path))
+            if (!_registryRepository.TryGetGhostscriptPath(use64Bit, out var path))
             {
                 return null;
             }

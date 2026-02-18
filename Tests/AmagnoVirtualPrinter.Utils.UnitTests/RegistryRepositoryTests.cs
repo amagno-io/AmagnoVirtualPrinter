@@ -10,7 +10,7 @@ namespace AmagnoVirtualPrinter.Utils.UnitTests
         {
             var sut = new RegistryRepository();
 
-            var result = sut.TryGetGhostscriptPath(out var path);
+            var result = sut.TryGetGhostscriptPath(true, out var path);
 
             Assert.True(result);
             Assert.IsNotNull(path);

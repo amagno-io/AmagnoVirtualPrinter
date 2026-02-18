@@ -78,13 +78,13 @@ namespace AmagnoVirtualPrinter.Delivery
         [CanBeNull]
         private string GetGhostScriptPath()
         {
-            return GetGhostScriptPath(GsWin64) ?? GetGhostScriptPath(GsWin32);
+            return GetGhostScriptPath(GsWin64, true) ?? GetGhostScriptPath(GsWin32, false);
         }
 
         [CanBeNull]
-        private string GetGhostScriptPath(string execName)
+        private string GetGhostScriptPath(string execName, bool use64Bit = true)
         {
-            if (!new RegistryRepository().TryGetGhostscriptPath(out var path))
+            if (!new RegistryRepository().TryGetGhostscriptPath(use64Bit, out var path))
             {
                 return null;
             }

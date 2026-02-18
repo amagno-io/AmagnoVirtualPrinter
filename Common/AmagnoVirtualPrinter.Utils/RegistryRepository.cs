@@ -17,13 +17,13 @@ namespace AmagnoVirtualPrinter.Utils
         
         private static readonly IVirtualPrinterLogger<RegistryRepository> Logger = new VirtualPrinterLogger<RegistryRepository>();
 
-        public bool TryGetGhostscriptPath(out string path)
+        public bool TryGetGhostscriptPath(bool use64Bit, out string path)
         {
             path = null;
 
             try
             {
-                var regView = GetRegistryView();
+                var regView = GetRegistryView(use64Bit);
 
                 using(var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, regView))
                 {
@@ -182,9 +182,9 @@ namespace AmagnoVirtualPrinter.Utils
             return userConfig;
         }
 
-        private RegistryView GetRegistryView()
+        private RegistryView GetRegistryView(bool use64Bit = true)
         {
-            if (Environment.Is64BitOperatingSystem)
+            if (Environment.Is64BitOperatingSystem && use64Bit)
             {
                 return RegistryView.Registry64;
             }

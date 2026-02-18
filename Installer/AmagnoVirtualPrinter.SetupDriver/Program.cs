@@ -53,7 +53,7 @@ namespace AmagnoVirtualPrinter.SetupDriver
                             try
                             {
                                 AddPrinterPort(PrinterPort, "127.0.0.1", 9101);
-                                new RegistryRepository().TryGetGhostscriptPath(out var ghostScriptPath);
+                                new RegistryRepository().TryGetGhostscriptPath(true, out var ghostScriptPath);
                                 if (ghostScriptPath == null)
                                 {
                                     throw new ArgumentNullException(nameof(ghostScriptPath), "Ghostscript path could not be found.");
